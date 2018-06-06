@@ -1,9 +1,11 @@
 package org.academiadecodigo.stormrooters.flappy_bird;
 
-import java.awt.*;
+
+import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 
 public class Game {
 
+    public final int PADDING = 10;
     private Bird bird;
     private Rectangle field;
     // need a container like a queue for the obstacles
@@ -14,7 +16,8 @@ public class Game {
      * fill the container with the first obstacles(or create a class field to do it)
      */
     public void init() {
-
+        field = new Rectangle(PADDING, PADDING, 1500, 500);
+        this.field.draw();
     }
 
     /**
