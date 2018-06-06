@@ -10,7 +10,7 @@ public class Obstacle implements Movable {
      * moves all object right
      */
     @Override
-    public void move() {
+    public void move(Direction direction) {
 
     }
 }

@@ -18,6 +18,9 @@ public class Game {
     public void init() {
         field = new Rectangle(PADDING, PADDING, 1500, 500);
         this.field.draw();
+        bird = new Bird(50, 235, 25, 15);
+
+
     }
 
     /**
