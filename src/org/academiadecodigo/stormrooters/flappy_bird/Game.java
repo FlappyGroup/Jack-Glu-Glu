@@ -19,7 +19,7 @@ public class Game {
 
     /**
      * prepare the game to start: - Draw field
-     * fill the container with the first obstacles(or create a class field to do it)
+     * create and add the container with the first obstacles
      */
     public void init() {
 
@@ -27,11 +27,9 @@ public class Game {
         field = new Rectangle(PADDING, PADDING, 1500, 500);
         this.field.draw();
 
-        // creating obstacles first obstacles
+        // creating first obstacle
         this.obstacles = new LinkedList<>();
-        for (int i = 0; i <= numberOfObstacles; i++) {
-            this.obstacles.add(createObstacles());
-        }
+        this.obstacles.add(createObstacles());
 
         // creating bird
         this.bird = new Bird();
@@ -48,6 +46,7 @@ public class Game {
             //delay between cycles
             Thread.sleep(DELAY);
 
+            //moving all obstacles
             for (Obstacle obstacle : obstacles) {
 
                 obstacle.move();
