@@ -31,7 +31,7 @@ public class Game {
         this.obstacles.add(createObstacles());
 
         // creating bird
-        this.bird = new Bird();
+        this.bird = new Bird(PADDING + 100, PADDING + 200, 50, 50);
     }
 
     /**
@@ -46,12 +46,12 @@ public class Game {
             Thread.sleep(DELAY);
 
             //moving all obstacles
-            for (Obstacle obstacle : obstacles) {
+           // for (Obstacle obstacle : obstacles) {
 
-                obstacle.move();
-            }
+             //   obstacle.move();
+            //}
 
-            bird.move();
+            //bird.move();
         }
     }
 

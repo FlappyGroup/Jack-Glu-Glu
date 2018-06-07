@@ -8,7 +8,7 @@ import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
 
 import java.awt.*;
 
-public class Bird implements Movable, KeyboardHandler {
+public class Bird implements  KeyboardHandler {
 
     private boolean isDead;
     private Rectangle hitBox;
@@ -26,7 +26,7 @@ public class Bird implements Movable, KeyboardHandler {
     /**
      * move the bird up and down (if cycles rising > 0 move up)
      */
-    @Override
+
     public void move(Direction direction) {
 
         int newYIncrement = 0;
