@@ -3,30 +3,56 @@ package org.academiadecodigo.stormrooters.flappy_bird;
 
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class Game {
 
-    public final int PADDING = 10;
+    private final int DELAY = 5;
+    private final int PADDING = 10;
+
     private Bird bird;
     private Rectangle field;
-    // need a container like a queue for the obstacles
-    //
+    private Queue<Obstacle> obstacles;
+
 
     /**
      * prepare the game to start: - Draw field
-     * fill the container with the first obstacles(or create a class field to do it)
+     * create and add the container with the first obstacles
      */
     public void init() {
+
+        //creating the field                     W      H
         field = new Rectangle(PADDING, PADDING, 1500, 500);
         this.field.draw();
 
+        // creating first obstacle
+        this.obstacles = new LinkedList<>();
+        this.obstacles.add(createObstacles());
+
+        // creating bird
+        this.bird = new Bird();
     }
 
     /**
      * check of collisions and
      * move all Movables
      */
-    public void runGame() {
+    public void runGame() throws InterruptedException {
 
+        while (true) {
+
+            //delay between cycles
+            Thread.sleep(DELAY);
+
+            //moving all obstacles
+            for (Obstacle obstacle : obstacles) {
+
+                obstacle.move();
+            }
+
+            bird.move();
+        }
     }
 
     /**
@@ -47,7 +73,7 @@ public class Game {
     /**
      * create a obstacle on the last position of the queue
      */
-    private void createObstacles() {
-
+    private Obstacle createObstacles() {
+        return null;
     }
 }
