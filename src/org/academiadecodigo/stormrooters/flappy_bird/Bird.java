@@ -34,20 +34,24 @@ public class Bird implements Movable, KeyboardHandler {
     @Override
     public void move(Direction direction) {
 
+        int newYIncrement = 0;
+
         switch (direction) {
 
             case UP:
                 this.y--;
+                newYIncrement = -1;
                 break;
 
             case DOWN:
                 this.y++;
+                newYIncrement = +1;
+
                 break;
 
         }
-        System.out.println("x=" + x);
-        System.out.println("y=" + y);
-        this.hitBox.translate(x,y);
+
+        this.hitBox.translate(0, newYIncrement);
 
 
     }
@@ -57,11 +61,9 @@ public class Bird implements Movable, KeyboardHandler {
 
         switch (keyboardEvent.getKey()) {
             case KeyboardEvent.KEY_UP:
-                System.out.println("UP");
                 move(Direction.UP);
                 break;
             case KeyboardEvent.KEY_DOWN:
-                System.out.println("DOWN");
                 move(Direction.DOWN);
                 break;
 
@@ -92,7 +94,6 @@ public class Bird implements Movable, KeyboardHandler {
     public void keyReleased(KeyboardEvent keyboardEvent) {
 
     }
-
 
 
     /**
