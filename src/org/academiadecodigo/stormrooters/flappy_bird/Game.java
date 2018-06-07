@@ -10,7 +10,6 @@ public class Game {
 
     private final int DELAY = 5;
     private final int PADDING = 10;
-    private final int numberOfObstacles = 3;
 
     private Bird bird;
     private Rectangle field;
