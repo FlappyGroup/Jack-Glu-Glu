@@ -13,17 +13,12 @@ public class Bird implements Movable, KeyboardHandler {
     private boolean isDead;
     private Rectangle hitBox;
     private int ciclesRising;
-    private int y;
-    private int x;
 
 
     public Bird(int x, int y, int width, int height) {
 
-        this.x = x;
-        this.y = y;
-
-        this.hitBox = new Rectangle(this.x, this.y, width, height);
-        this.hitBox.draw();
+        this.hitBox = new Rectangle(x, y, width, height);
+        this.hitBox.fill();
         addEventsToKeyboard();
 
     }
@@ -39,12 +34,10 @@ public class Bird implements Movable, KeyboardHandler {
         switch (direction) {
 
             case UP:
-                this.y--;
                 newYIncrement = -1;
                 break;
 
             case DOWN:
-                this.y++;
                 newYIncrement = +1;
 
                 break;
@@ -102,6 +95,14 @@ public class Bird implements Movable, KeyboardHandler {
     public void fly() {
 
 
+    }
+
+    public int getX() {
+        return hitBox.getX();
+    }
+
+    public int getY() {
+        return hitBox.getY();
     }
 }
 
