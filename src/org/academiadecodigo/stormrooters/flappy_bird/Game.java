@@ -13,7 +13,7 @@ public class Game {
 
     private Bird bird;
     private Rectangle field;
-    private Queue<Obstacle> obstacles;
+    private LinkedList<Obstacle> obstacles;
 
 
     /**
@@ -46,12 +46,14 @@ public class Game {
             Thread.sleep(DELAY);
 
             //moving all obstacles
-           // for (Obstacle obstacle : obstacles) {
+            // for (Obstacle obstacle : obstacles) {
 
-             //   obstacle.move();
+            //   obstacle.move();
             //}
 
             //bird.move();
+
+            collisionChecker();
         }
     }
 
@@ -59,8 +61,50 @@ public class Game {
      * Check collision of bird with top, ground and obstacles
      * and obstacles with the right wall
      */
-    public void collisionDetecter() {
+    public void collisionChecker() {
 
+        int topObstacleY = obstacles.peek().getY();
+        int topObstacleX = obstacles.peek().getX();
+        int topObstacleWidth = obstacles.peek().getWidth();
+        int topObstacleHeight = obstacles.peek().getHeight();
+
+        // checking if obstacles it the edge of the field and delete NOT TESTED
+        if (topObstacleX + topObstacleWidth <= field.getX()) {
+            deleteObstacles();
+            createObstacles();
+        }
+        int birdY = bird.getY();
+        int birdX = bird.getX();
+        int birdWidth = bird.getWidth();
+        int birdHeight = bird.getHeight();
+
+
+        //checking collision with ground/roof
+        if (birdY <= field.getY() ||
+                (birdY + birdHeight) >= (field.getY() + field.getHeight())) {
+
+            bird.die();
+            return;
+        }
+
+        // checking collision with obstacles NOT TESTED
+        if (birdX + birdWidth < topObstacleX || birdX > topObstacleX + topObstacleWidth) {
+            return;
+        }
+
+
+        // checking collision with top obstacles
+        if (birdY <= topObstacleY + topObstacleHeight) {
+            bird.die();
+            return;
+        }
+
+        int bottonObstacleY = obstacles.get(1).getY();
+
+        if (birdY + birdHeight >= bottonObstacleY) {
+            bird.die();
+            return;
+        }
     }
 
     /**
@@ -76,4 +120,5 @@ public class Game {
     private Obstacle createObstacles() {
         return null;
     }
+
 }

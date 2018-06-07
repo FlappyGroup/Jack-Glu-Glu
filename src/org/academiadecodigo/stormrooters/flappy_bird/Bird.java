@@ -8,7 +8,7 @@ import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
 
 import java.awt.*;
 
-public class Bird implements  KeyboardHandler {
+public class Bird implements KeyboardHandler {
 
     private boolean isDead;
     private Rectangle hitBox;
@@ -47,6 +47,10 @@ public class Bird implements  KeyboardHandler {
         this.hitBox.translate(0, newYIncrement);
 
 
+    }
+
+    public void die() {
+        isDead = true;
     }
 
     @Override
@@ -95,6 +99,14 @@ public class Bird implements  KeyboardHandler {
     public void fly() {
 
 
+    }
+
+    public int getHeight() {
+        return hitBox.getHeight();
+    }
+
+    public int getWidth() {
+        return hitBox.getWidth();
     }
 
     public int getX() {
