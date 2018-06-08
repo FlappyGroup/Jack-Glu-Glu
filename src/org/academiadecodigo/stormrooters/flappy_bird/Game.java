@@ -63,23 +63,28 @@ public class Game {
      */
     public void collisionChecker() {
 
-        int topObstacleY = obstacles.peek().getY();
-        int topObstacleX = obstacles.peek().getX();
-        int topObstacleWidth = obstacles.peek().getWidth();
-        int topObstacleHeight = obstacles.peek().getHeight();
+        Obstacle top = obstacles.peek();
+
+        int topObstacleY = top.getY();
+        int topObstacleX = top.getX();
+        int topObstacleWidth = top.getWidth();
+        int topObstacleHeight = top.getHeight();
+
+        int birdY = bird.getY();
+        int birdX = bird.getX();
+        int birdWidth = bird.getWidth();
+        int birdHeight = bird.getHeight();
+
+        int bottonObstacleY = obstacles.get(1).getY();
 
         // checking if obstacles it the edge of the field and delete NOT TESTED
         if (topObstacleX + topObstacleWidth <= field.getX()) {
             deleteObstacles();
             createObstacles();
         }
-        int birdY = bird.getY();
-        int birdX = bird.getX();
-        int birdWidth = bird.getWidth();
-        int birdHeight = bird.getHeight();
-
 
         //checking collision with ground/roof
+
         if (birdY <= field.getY() ||
                 (birdY + birdHeight) >= (field.getY() + field.getHeight())) {
 
@@ -99,7 +104,6 @@ public class Game {
             return;
         }
 
-        int bottonObstacleY = obstacles.get(1).getY();
 
         if (birdY + birdHeight >= bottonObstacleY) {
             bird.die();
