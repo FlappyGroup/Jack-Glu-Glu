@@ -4,21 +4,22 @@ package org.academiadecodigo.stormrooters.flappy_bird;
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 
 import java.util.LinkedList;
-import java.util.Queue;
 
 public class Game {
 
+    private final int TRIGGER = 1300; // X pixel who triggers a new obstacle;
     private final int DELAY = 5;
     private final int PADDING = 10;
 
     private Bird bird;
     private Rectangle field;
-    private LinkedList<Obstacle> obstacles;
+    private LinkedList<Obstacle> topObstacles;
+    private LinkedList<Obstacle> bottomObstacles;
 
 
     /**
      * prepare the game to start: - Draw field
-     * create and add the container with the first obstacles
+     * create and add the container with the first topObstacles
      */
     public void init() {
 
@@ -26,9 +27,9 @@ public class Game {
         field = new Rectangle(PADDING, PADDING, 1500, 500);
         this.field.draw();
 
-        // creating first obstacle
-        this.obstacles = new LinkedList<>();
-        this.obstacles.add(createObstacles());
+        // creating obstacle lists
+        this.topObstacles = new LinkedList<>();
+        this.bottomObstacles = new LinkedList<>();
 
         // creating bird
         this.bird = new Bird(PADDING + 100, PADDING + 200, 50, 50);
@@ -45,41 +46,45 @@ public class Game {
             //delay between cycles
             Thread.sleep(DELAY);
 
-            //moving all obstacles
-           // for (Obstacle obstacle : obstacles) {
+            //moving all topObstacles
+            // for (Obstacle obstacle : topObstacles) {
 
-             //   obstacle.move();
+            //   obstacle.move();
             //}
 
             //bird.move();
+
             collisionChecker();
+
         }
     }
 
     /**
-     * Check collision of bird with top, ground and obstacles
-     * and obstacles with the right wall
+     * Check collision of bird with top, ground and topObstacles
+     * and topObstacles with the right wall
      */
     public void collisionChecker() {
 
-        Obstacle top = obstacles.peek();
+        Obstacle top = topObstacles.peek();
+        Obstacle bottom = bottomObstacles.peek();
 
         int topObstacleY = top.getY();
         int topObstacleX = top.getX();
         int topObstacleWidth = top.getWidth();
         int topObstacleHeight = top.getHeight();
 
+        int bottomObstacleY = bottom.getY();
+
         int birdY = bird.getY();
         int birdX = bird.getX();
         int birdWidth = bird.getWidth();
         int birdHeight = bird.getHeight();
 
-        int bottomObstacleY = obstacles.get(1).getY();
 
-        // checking if obstacles it the edge of the field and delete NOT TESTED
+        // checking if topObstacles it the edge of the field and delete NOT TESTED
         if (topObstacleX + topObstacleWidth <= field.getX()) {
             deleteObstacles();
-            createObstacles();
+            createObstacle();
         }
 
         //checking collision with ground/roof
@@ -91,13 +96,13 @@ public class Game {
             return;
         }
 
-        // checking collision with obstacles NOT TESTED
+        // checking collision with topObstacles NOT TESTED
         if (birdX + birdWidth < topObstacleX || birdX > topObstacleX + topObstacleWidth) {
             return;
         }
 
 
-        // checking collision with top obstacles
+        // checking collision with top topObstacles
         if (birdY <= topObstacleY + topObstacleHeight) {
             bird.die();
             return;
@@ -115,13 +120,14 @@ public class Game {
      */
     public void deleteObstacles() {
 
+
     }
 
     /**
      * create a obstacle on the last position of the queue
      */
-    private Obstacle createObstacles() {
-        return null;
+    private void createObstacle() {
+        return;
     }
 
 }
