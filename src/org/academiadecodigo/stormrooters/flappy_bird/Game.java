@@ -13,7 +13,7 @@ public class Game {
 
     private Bird bird;
     private Rectangle field;
-    private Queue<Obstacle> obstacles;
+    private LinkedList<Obstacle> obstacles;
 
 
     /**
@@ -52,6 +52,7 @@ public class Game {
             //}
 
             //bird.move();
+            collisionChecker();
         }
     }
 
@@ -73,7 +74,7 @@ public class Game {
         int birdWidth = bird.getWidth();
         int birdHeight = bird.getHeight();
 
-        int bottonObstacleY = obstacles.get(1).getY();
+        int bottomObstacleY = obstacles.get(1).getY();
 
         // checking if obstacles it the edge of the field and delete NOT TESTED
         if (topObstacleX + topObstacleWidth <= field.getX()) {
@@ -103,7 +104,7 @@ public class Game {
         }
 
 
-        if (birdY + birdHeight >= bottonObstacleY) {
+        if (birdY + birdHeight >= bottomObstacleY) {
             bird.die();
             return;
         }
