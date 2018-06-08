@@ -122,4 +122,5 @@ public class Game {
     private Obstacle createObstacles() {
         return null;
     }
+
 }
