@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Obstacle {
 
     private ArrayList<Rectangle> cells;
-    private int cellHeigth;
+    private int cellHeight;
     private int cellWidth;
     private static final int SIZE = 10;
     private int middleGap;
@@ -19,25 +19,28 @@ public class Obstacle {
         this.middleGap = gap;
         cells = new ArrayList<>();
         this.cellWidth = 100;
-        this.cellHeigth = Game.FIELD_HEIGHT / SIZE;
+        this.cellHeight = Game.FIELD_HEIGHT / SIZE;
 
 
-        cells.add(new Rectangle(Game.FIELD_WIGHT - cellWidth, Game.PADDING, cellWidth, cellHeigth));
+
+    }
+public void objectInit(){
+        cells.add(new Rectangle(Game.FIELD_WIGHT - cellWidth, Game.PADDING, cellWidth, cellHeight));
         cells.get(0).fill();
 
         for (int i = 1; i < SIZE; i++) {
             cells.add(new Rectangle(Game.FIELD_WIGHT - cellWidth, Game.PADDING +
-                    (cellHeigth * i), cellWidth, cellHeigth));
+                    (cellHeight * i), cellWidth, cellHeight));
             cells.get(i).fill();
         }
 
-        for (int i = gap - 1; i <= gap + 1; i++) {
+        for (int i = this.middleGap - 1; i <= this.middleGap + 1; i++) {
 
             cells.get(i).delete();
         }
 
-    }
 
+}
 
     /**
      * moves all object right

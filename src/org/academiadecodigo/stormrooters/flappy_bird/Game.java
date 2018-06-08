@@ -18,12 +18,16 @@ public class Game {
     private Rectangle field;
     private LinkedList<Obstacle> obstacles;
 
+    private int testarEspaços;
+
 
     /**
      * prepare the game to start: - Draw field
      * create and add the container with the first obstacles
      */
     public void init() {
+
+
 
         //creating the field                     W                 H
         field = new Rectangle(PADDING, PADDING, FIELD_WIGHT, FIELD_HEIGHT);
@@ -34,6 +38,7 @@ public class Game {
 
         // creating bird
         this.bird = new Bird(PADDING + 100, PADDING + 200, 50, 50);
+        testarEspaços = 0;
     }
 
     /**
@@ -42,10 +47,10 @@ public class Game {
      */
     public void runGame() throws InterruptedException {
 
-        createObstacle();
+
 
         while (true) {
-
+            createObstacle();
             //delay between cycles
             Thread.sleep(DELAY);
 
@@ -131,8 +136,51 @@ public class Game {
      * create a obstacle on the last position of the queue
      */
     private void createObstacle() {
-        int gap = 4;
-        obstacles.add(new Obstacle(gap));
+
+
+        if (obstacles.size() <= 4) {
+
+            testarEspaços--;
+
+            if (testarEspaços <= 0) {
+                Obstacle obst = new Obstacle(numberGap());
+                testarEspaços = 350;
+                obst.objectInit();
+                obstacles.add(obst);
+
+            }
+
+        }
+    }
+
+    private int numberGap() {
+        if (obstacles.isEmpty()) {
+
+            return 4;
+        }
+        int number = obstacles.getLast().getMiddleGap();
+
+        if (number == 2) {
+            return number + 2;
+
+        }
+
+        if (number == 8) {
+
+
+            return number - 8;
+
+        }
+
+        double random = Math.random();
+
+        if (random > 0.5) {
+            return number + 2;
+
+        }
+        return number - 2;
+
+
     }
 
 }
