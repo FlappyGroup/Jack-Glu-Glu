@@ -82,7 +82,7 @@ public class Bird implements KeyboardHandler {
             case KeyboardEvent.KEY_DOWN:
                 move(Direction.DOWN);
             case KeyboardEvent.KEY_SPACE:
-                ciclesRising = 10;
+                ciclesRising = 50;
                 break;
 
         }

@@ -131,7 +131,8 @@ public class Game {
      * create a obstacle on the last position of the queue
      */
     private void createObstacle() {
-        obstacles.add(new Obstacle());
+        int gap = 4;
+        obstacles.add(new Obstacle(gap));
     }
 
 }

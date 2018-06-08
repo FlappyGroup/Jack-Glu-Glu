@@ -14,7 +14,9 @@ public class Obstacle {
     private int middleGap;
 
 
-    public Obstacle() {
+    public Obstacle(int gap) {
+
+        this.middleGap = gap;
         cells = new ArrayList<>();
         this.cellWidth = 100;
         this.cellHeigth = Game.FIELD_HEIGHT / SIZE;
@@ -27,6 +29,11 @@ public class Obstacle {
             cells.add(new Rectangle(Game.FIELD_WIGHT - cellWidth, Game.PADDING +
                     (cellHeigth * i), cellWidth, cellHeigth));
             cells.get(i).fill();
+        }
+
+        for (int i = gap - 1; i <= gap + 1; i++) {
+
+            cells.get(i).delete();
         }
 
     }
