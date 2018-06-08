@@ -14,13 +14,19 @@ public class Obstacle {
     private int middleGap;
 
 
-    public Obstacle(int fieldSize) {
+    public Obstacle() {
+        cells = new ArrayList<>();
         this.cellWidth = 100;
-        this.cellHeigth = fieldSize / SIZE;
+        this.cellHeigth = Game.FIELD_HEIGHT / SIZE;
 
 
-        for (int i = 0; i < SIZE; i++) {
-            //cells.add()
+        cells.add(new Rectangle(Game.FIELD_WIGHT - cellWidth, Game.PADDING, cellWidth, cellHeigth));
+        cells.get(0).fill();
+
+        for (int i = 1; i < SIZE; i++) {
+            cells.add(new Rectangle(Game.FIELD_WIGHT - cellWidth, Game.PADDING +
+                    (cellHeigth * i), cellWidth, cellHeigth));
+            cells.get(i).fill();
         }
 
     }

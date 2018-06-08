@@ -8,28 +8,29 @@ import java.util.LinkedList;
 public class Game {
 
     private final int TRIGGER = 1300; // X pixel who triggers a new obstacle;
-    private final int DELAY = 5;
-    private final int PADDING = 10;
+    private final int DELAY = 10;
+    public static final int PADDING = 10;
+
+    public static final int FIELD_HEIGHT = 500;
+    public static final int FIELD_WIGHT = 1500;
 
     private Bird bird;
     private Rectangle field;
-    private LinkedList<Obstacle> topObstacles;
-    private LinkedList<Obstacle> bottomObstacles;
+    private LinkedList<Obstacle> obstacles;
 
 
     /**
      * prepare the game to start: - Draw field
-     * create and add the container with the first topObstacles
+     * create and add the container with the first obstacles
      */
     public void init() {
 
-        //creating the field                     W      H
-        field = new Rectangle(PADDING, PADDING, 1500, 500);
+        //creating the field                     W                 H
+        field = new Rectangle(PADDING, PADDING, FIELD_WIGHT, FIELD_HEIGHT);
         this.field.draw();
 
         // creating obstacle lists
-        this.topObstacles = new LinkedList<>();
-        this.bottomObstacles = new LinkedList<>();
+        this.obstacles = new LinkedList<>();
 
         // creating bird
         this.bird = new Bird(PADDING + 100, PADDING + 200, 50, 50);
@@ -41,16 +42,18 @@ public class Game {
      */
     public void runGame() throws InterruptedException {
 
+        createObstacle();
+
         while (true) {
 
             //delay between cycles
             Thread.sleep(DELAY);
 
-            //moving all topObstacles
-            // for (Obstacle obstacle : topObstacles) {
+            //moving all obstacles
+            for (Obstacle obstacle : obstacles) {
 
-            //   obstacle.move();
-            //}
+                obstacle.move();
+            }
 
             bird.move();
 
@@ -60,8 +63,8 @@ public class Game {
     }
 
     /**
-     * Check collision of bird with top, ground and topObstacles
-     * and topObstacles with the right wall
+     * Check collision of bird with top, ground and obstacles
+     * and obstacles with the right wall
      */
     public void collisionChecker() {
 
@@ -81,7 +84,7 @@ public class Game {
         int birdHeight = bird.getHeight();
 
 
-        // checking if topObstacles it the edge of the field and delete NOT TESTED
+        // checking if obstacles it the edge of the field and delete NOT TESTED
         if (topObstacleX + topObstacleWidth <= field.getX()) {
             deleteObstacles();
             createObstacle();
@@ -96,13 +99,13 @@ public class Game {
             return;
         }
 
-        // checking collision with topObstacles NOT TESTED
+        // checking collision with obstacles NOT TESTED
         if (birdX + birdWidth < topObstacleX || birdX > topObstacleX + topObstacleWidth) {
             return;
         }
 
 
-        // checking collision with top topObstacles
+        // checking collision with top obstacles
         if (birdY <= topObstacleY + topObstacleHeight) {
             bird.die();
             return;
@@ -112,7 +115,8 @@ public class Game {
         if (birdY + birdHeight >= bottomObstacleY) {
             bird.die();
             return;
-        }*/
+        }
+        */
     }
 
     /**
@@ -127,7 +131,7 @@ public class Game {
      * create a obstacle on the last position of the queue
      */
     private void createObstacle() {
-        return;
+        obstacles.add(new Obstacle());
     }
 
 }
