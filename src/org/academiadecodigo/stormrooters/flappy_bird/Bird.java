@@ -21,6 +21,7 @@ public class Bird implements KeyboardHandler {
         this.hitBox.fill();
         addEventsToKeyboard();
 
+
     }
 
     /**
@@ -49,6 +50,24 @@ public class Bird implements KeyboardHandler {
 
     }
 
+
+    public void move() {
+
+
+        if (ciclesRising > 0) {
+
+            this.hitBox.translate(0, -1);
+            ciclesRising--;
+            return;
+        }
+
+
+        this.hitBox.translate(0, 1);
+
+
+    }
+
+
     public void die() {
         isDead = true;
     }
@@ -62,6 +81,8 @@ public class Bird implements KeyboardHandler {
                 break;
             case KeyboardEvent.KEY_DOWN:
                 move(Direction.DOWN);
+            case KeyboardEvent.KEY_SPACE:
+                ciclesRising = 10;
                 break;
 
         }
@@ -81,8 +102,13 @@ public class Bird implements KeyboardHandler {
         pressDown.setKey(KeyboardEvent.KEY_DOWN);
         pressDown.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
 
+        KeyboardEvent pressSpace = new KeyboardEvent();
+        pressDown.setKey(KeyboardEvent.KEY_SPACE);
+        pressDown.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
+
         keyboard.addEventListener(pressUp);
         keyboard.addEventListener(pressDown);
+        keyboard.addEventListener(pressSpace);
 
 
     }

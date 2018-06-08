@@ -52,7 +52,7 @@ public class Game {
             //   obstacle.move();
             //}
 
-            //bird.move();
+            bird.move();
 
             collisionChecker();
 
@@ -65,7 +65,7 @@ public class Game {
      */
     public void collisionChecker() {
 
-        Obstacle top = topObstacles.peek();
+        /*Obstacle top = topObstacles.peek();
         Obstacle bottom = bottomObstacles.peek();
 
         int topObstacleY = top.getY();
@@ -112,7 +112,7 @@ public class Game {
         if (birdY + birdHeight >= bottomObstacleY) {
             bird.die();
             return;
-        }
+        }*/
     }
 
     /**

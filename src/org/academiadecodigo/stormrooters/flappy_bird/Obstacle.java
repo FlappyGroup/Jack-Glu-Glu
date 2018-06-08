@@ -20,7 +20,7 @@ public class Obstacle {
 
 
         for (int i = 0; i < SIZE; i++) {
-            cells.add()
+            //cells.add()
         }
 
     }
