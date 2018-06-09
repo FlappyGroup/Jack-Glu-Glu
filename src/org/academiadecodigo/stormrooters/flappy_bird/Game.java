@@ -93,7 +93,7 @@ public class Game {
 
         // checking if obstacles it the edge of the field and delete
         if (topCellX + topCellWidth <= field.getX()) {
-            //recycleObstacle();
+            recycleObstacle();
             //createObstacle();
         }
 
@@ -131,8 +131,14 @@ public class Game {
      */
     public void recycleObstacle() {
 
+        Obstacle obstacle = obstacles.poll();
+        obstacle.deleteCell();
+        obstacle.setUsed(false);
+        obstacles.addLast(obstacle);
+
 
     }
+
 
     /**
      * create a obstacle on the last position of the queue
@@ -141,17 +147,36 @@ public class Game {
 
         spacer--;
 
-        if (obstacles.size() <= 5) {
 
-            if (spacer <= 0) {
+        if (spacer <= 0) {
 
-                Obstacle obst = new Obstacle(numberGap());
+            if (obstacles.size() <= 5) {
+
+                Obstacle obst = new Obstacle();
                 spacer = 350;
                 obst.objectInit();
+                obst.deleteGap(numberGap());
                 obstacles.add(obst);
+                return;
+
+            }
+
+            for (int i = 0; i < obstacles.size(); i++) {
+
+                if (!obstacles.get(i).getUsed()) {
+                    spacer = 350;
+                    obstacles.get(i).translateCells();
+                    obstacles.get(i).deleteGap(numberGap());
+                    obstacles.get(i).setUsed(true);
+                    break;
+
+                }
+
+
             }
         }
     }
+
 
     /**
      * generate the number of next gap

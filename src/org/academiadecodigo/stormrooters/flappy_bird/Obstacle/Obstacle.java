@@ -17,14 +17,15 @@ public class Obstacle {
     private boolean used;
 
 
-    public Obstacle(int gap) {
+    public Obstacle() {
 
-        this.middleGap = gap;
+
         cells = new ArrayList<>();
         this.cellWidth = 100;
         this.cellHeight = Game.FIELD_HEIGHT / SIZE;
         used = true;
     }
+
 
     /**
      * create all the cells of obstacle
@@ -40,7 +41,12 @@ public class Obstacle {
             cells.get(i).fill();
         }
 
-        for (int i = this.middleGap - 1; i <= this.middleGap + 1; i++) {
+
+    }
+
+    public void deleteCell() {
+
+        for (int i = 0; i < cells.size(); i++) {
 
             cells.get(i).delete();
             cells.get(i).setOff();
@@ -49,15 +55,47 @@ public class Obstacle {
 
     }
 
+
+    public void deleteGap(int numberGap) {
+
+        middleGap = numberGap;
+
+        for (int i = this.middleGap - 1; i <= this.middleGap + 1; i++) {
+
+            cells.get(i).delete();
+            cells.get(i).setOff();
+
+
+        }
+    }
+
     /**
      * moves all object right
      */
     public void move() {
 
+        if (!used) {
+            return;
+        }
+
         for (Rectangle cell : cells) {
+
             cell.translate(-1, 0);
         }
 
+
+
+    }
+
+
+    public void translateCells() {
+
+        for (int i = 0; i < cells.size(); i++) {
+
+            cells.get(i).translate(1500, 0);
+            cells.get(i).fill();
+            cells.get(i).setOn();
+        }
     }
 
     /**
@@ -78,6 +116,7 @@ public class Obstacle {
 
     /**
      * get the first cell after the gap
+     *
      * @return Cell
      */
 
@@ -98,7 +137,13 @@ public class Obstacle {
         return middleGap;
     }
 
+    public void setUsed(boolean used) {
+        this.used = used;
+    }
 
+    public boolean getUsed() {
+        return used;
+    }
 }
 
 
