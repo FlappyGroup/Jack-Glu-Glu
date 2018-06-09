@@ -8,11 +8,13 @@ import java.util.ArrayList;
 
 public class Obstacle {
 
+    private static final int SIZE = 11;
+
     private ArrayList<Cell> cells;
     private int cellHeight;
     private int cellWidth;
-    private static final int SIZE = 11;
     private int middleGap;
+    private boolean used;
 
 
     public Obstacle(int gap) {
@@ -21,10 +23,12 @@ public class Obstacle {
         cells = new ArrayList<>();
         this.cellWidth = 100;
         this.cellHeight = Game.FIELD_HEIGHT / SIZE;
-
-
+        used = true;
     }
 
+    /**
+     * create all the cells of obstacle
+     */
     public void objectInit() {
 
         cells.add(new Cell(Game.FIELD_WIGHT - cellWidth, Game.PADDING, cellWidth, cellHeight));
@@ -56,6 +60,11 @@ public class Obstacle {
 
     }
 
+    /**
+     * get the last filled cell before the gap
+     *
+     * @return Cell
+     */
     public Cell getTopObstacle() {
 
         for (int i = 0; i < cells.size(); i++) {
@@ -66,6 +75,11 @@ public class Obstacle {
         }
         return null;
     }
+
+    /**
+     * get the first cell after the gap
+     * @return Cell
+     */
 
     public Cell getBottomObstacle() {
 

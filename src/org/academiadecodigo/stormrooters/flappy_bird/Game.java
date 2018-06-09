@@ -93,7 +93,7 @@ public class Game {
 
         // checking if obstacles it the edge of the field and delete
         if (topCellX + topCellWidth <= field.getX()) {
-            //deleteObstacles();
+            //recycleObstacle();
             //createObstacle();
         }
 
@@ -129,7 +129,7 @@ public class Game {
     /**
      * delete first obstacle on the queue
      */
-    public void deleteObstacles() {
+    public void recycleObstacle() {
 
 
     }
@@ -139,10 +139,9 @@ public class Game {
      */
     private void createObstacle() {
 
+        spacer--;
 
-        if (obstacles.size() <= 4) {
-
-            spacer--;
+        if (obstacles.size() <= 5) {
 
             if (spacer <= 0) {
 
@@ -151,10 +150,14 @@ public class Game {
                 obst.objectInit();
                 obstacles.add(obst);
             }
-
         }
     }
 
+    /**
+     * generate the number of next gap
+     *
+     * @return int where the center of the next gap will be
+     */
     private int numberGap() {
 
         if (obstacles.isEmpty()) {
@@ -172,7 +175,6 @@ public class Game {
 
             return number - 2;
         }
-
         double random = Math.random();
 
         if (random > 0.5) {
@@ -180,8 +182,6 @@ public class Game {
             return number + 2;
         }
         return number - 2;
-
-
     }
 
 }
