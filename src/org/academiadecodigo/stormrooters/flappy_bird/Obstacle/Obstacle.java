@@ -84,7 +84,6 @@ public class Obstacle {
         }
 
 
-
     }
 
 
@@ -92,7 +91,7 @@ public class Obstacle {
 
         for (int i = 0; i < cells.size(); i++) {
 
-            cells.get(i).translate(1500, 0);
+            cells.get(i).translate(Game.FIELD_WIGHT , 0);
             cells.get(i).fill();
             cells.get(i).setOn();
         }

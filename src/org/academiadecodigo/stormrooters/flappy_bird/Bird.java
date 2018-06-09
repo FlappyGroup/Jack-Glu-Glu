@@ -39,7 +39,7 @@ public class Bird implements KeyboardHandler {
                 break;
 
             case DOWN:
-                newYIncrement = +1;
+                newYIncrement = 1;
 
                 break;
 
@@ -84,7 +84,7 @@ public class Bird implements KeyboardHandler {
                 move(Direction.DOWN);
 
             case KeyboardEvent.KEY_SPACE:
-                ciclesRising = 50;
+                ciclesRising = 40;
                 break;
 
         }

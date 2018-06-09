@@ -92,9 +92,8 @@ public class Game {
 
 
         // checking if obstacles it the edge of the field and delete
-        if (topCellX + topCellWidth <= field.getX()) {
+        if (topCellX <= field.getX()) {
             recycleObstacle();
-            //createObstacle();
         }
 
         //checking collision with ground/roof
@@ -153,7 +152,7 @@ public class Game {
             if (obstacles.size() <= 5) {
 
                 Obstacle obst = new Obstacle();
-                spacer = 350;
+                spacer = 300;
                 obst.objectInit();
                 obst.deleteGap(numberGap());
                 obstacles.add(obst);
@@ -164,7 +163,7 @@ public class Game {
             for (int i = 0; i < obstacles.size(); i++) {
 
                 if (!obstacles.get(i).getUsed()) {
-                    spacer = 350;
+                    spacer = 300;
                     obstacles.get(i).translateCells();
                     obstacles.get(i).deleteGap(numberGap());
                     obstacles.get(i).setUsed(true);
