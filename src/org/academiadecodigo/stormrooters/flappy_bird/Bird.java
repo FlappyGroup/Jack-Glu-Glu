@@ -19,7 +19,7 @@ public class Bird implements KeyboardHandler {
     public Bird(int x, int y, int width, int height) {
 
        // this.hitBox = new Rectangle(x, y, width, height);
-        this.hitBox1 = new Picture(x, y, "C:\\Users\\Papi Litron\\Desktop\\flappy_bird\\PNG\\enemies\\mine.png");
+        this.hitBox1 = new Picture(x, y, "PNG/enemies/mine.png");
         this.hitBox1.draw();
        // this.hitBox.fill();
         addEventsToKeyboard();
