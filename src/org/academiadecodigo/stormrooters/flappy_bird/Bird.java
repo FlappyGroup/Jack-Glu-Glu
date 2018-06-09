@@ -5,20 +5,24 @@ import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
+import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 import java.awt.*;
 
 public class Bird implements KeyboardHandler {
 
     private boolean isDead;
-    private Rectangle hitBox;
+    //private Rectangle hitBox;
+    private Picture hitBox1;
     private int ciclesRising;
 
 
     public Bird(int x, int y, int width, int height) {
 
-        this.hitBox = new Rectangle(x, y, width, height);
-        this.hitBox.fill();
+       // this.hitBox = new Rectangle(x, y, width, height);
+        this.hitBox1 = new Picture(x, y, "C:\\Users\\Papi Litron\\Desktop\\flappy_bird\\PNG\\enemies\\mine.png");
+        this.hitBox1.draw();
+       // this.hitBox.fill();
         addEventsToKeyboard();
 
 
@@ -45,7 +49,8 @@ public class Bird implements KeyboardHandler {
 
         }
 
-        this.hitBox.translate(0, newYIncrement);
+        //this.hitBox.translate(0, newYIncrement);
+        this.hitBox1.translate(0, newYIncrement);
 
 
     }
@@ -56,13 +61,15 @@ public class Bird implements KeyboardHandler {
 
         if (ciclesRising > 0) {
 
-            this.hitBox.translate(0, -1);
+           // this.hitBox.translate(0, -1);
+            this.hitBox1.translate(0, -1);
             ciclesRising--;
             return;
         }
 
 
-        this.hitBox.translate(0, 1);
+       // this.hitBox.translate(0, 1);
+        this.hitBox1.translate(0,1);
 
 
     }
@@ -134,19 +141,19 @@ public class Bird implements KeyboardHandler {
     }
 
     public int getHeight() {
-        return hitBox.getHeight();
+        return hitBox1.getHeight();
     }
 
     public int getWidth() {
-        return hitBox.getWidth();
+        return hitBox1.getWidth();
     }
 
     public int getX() {
-        return hitBox.getX();
+        return hitBox1.getX();
     }
 
     public int getY() {
-        return hitBox.getY();
+        return hitBox1.getY();
     }
 }
 

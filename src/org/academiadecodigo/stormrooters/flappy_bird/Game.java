@@ -2,6 +2,7 @@ package org.academiadecodigo.stormrooters.flappy_bird;
 
 
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
+import org.academiadecodigo.simplegraphics.pictures.Picture;
 import org.academiadecodigo.stormrooters.flappy_bird.Obstacle.Cell;
 import org.academiadecodigo.stormrooters.flappy_bird.Obstacle.Obstacle;
 
@@ -12,7 +13,7 @@ public class Game {
     private final int DELAY = 7;
     public static final int PADDING = 10;
 
-    public static final int FIELD_HEIGHT = 500;
+    public static final int FIELD_HEIGHT = 495;
     public static final int FIELD_WIGHT = 1500;
 
     private Bird bird;
@@ -32,6 +33,9 @@ public class Game {
         //creating the field                     W                 H
         field = new Rectangle(PADDING, PADDING, FIELD_WIGHT, FIELD_HEIGHT);
         this.field.draw();
+        Picture background = new Picture(PADDING, PADDING, "C:\\Users\\Papi Litron\\Desktop\\flappy_bird\\resources\\bg.jpg");
+        background.draw();
+
 
         // creating obstacle lists
         this.obstacles = new LinkedList<>();
