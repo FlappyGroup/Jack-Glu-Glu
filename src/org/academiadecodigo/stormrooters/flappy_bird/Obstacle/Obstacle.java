@@ -22,7 +22,7 @@ public class Obstacle {
 
         cells = new ArrayList<>();
         this.cellWidth = 100;
-        this.cellHeight = Game.FIELD_HEIGHT / SIZE;
+        this.cellHeight = 45;
         used = true;
     }
 
@@ -91,7 +91,7 @@ public class Obstacle {
 
         for (int i = 0; i < cells.size(); i++) {
 
-            cells.get(i).translate(Game.FIELD_WIGHT , 0);
+            cells.get(i).translate(Game.FIELD_WIGHT - cellWidth, 0);
             cells.get(i).fill();
             cells.get(i).setOn();
         }

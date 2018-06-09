@@ -55,6 +55,7 @@ public class Game {
         while (!bird.isDead()) {
 
             createObstacle();
+
             //delay between cycles
             Thread.sleep(DELAY);
 
@@ -108,7 +109,7 @@ public class Game {
             bird.die();
             return;
         }
-
+/*
         // checking collision with obstacles
         if (birdX + birdWidth < topCellX || birdX > topCellX + topCellWidth) {
             return;
@@ -125,7 +126,7 @@ public class Game {
         if (birdY + birdHeight >= bottomCellY) {
             bird.die();
             return;
-        }
+        }*/
 
     }
 
@@ -153,7 +154,7 @@ public class Game {
 
         if (spacer <= 0) {
 
-            if (obstacles.size() <= 5) {
+            if (obstacles.size() < 5) {
 
                 Obstacle obst = new Obstacle();
                 spacer = 300;
@@ -192,7 +193,7 @@ public class Game {
 
             return 4;
         }
-        int number = obstacles.getLast().getMiddleGap();
+        int number = getLastUsedObstacle().getMiddleGap();
 
         if (number == 2) {
 
@@ -212,4 +213,16 @@ public class Game {
         return number - 2;
     }
 
+    public Obstacle getLastUsedObstacle() {
+
+        for (int i = obstacles.size() - 1; i >= 0; i--) {
+
+              if (obstacles.get(i).getUsed()){
+                  return obstacles.get(i);
+              }
+        }
+
+        return null;
+    }
 }
+

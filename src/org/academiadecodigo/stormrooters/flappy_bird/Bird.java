@@ -16,7 +16,6 @@ public class Bird implements KeyboardHandler {
     private Picture hitBox1;
     private int ciclesRising;
 
-
     public Bird(int x, int y, int width, int height) {
 
        // this.hitBox = new Rectangle(x, y, width, height);
