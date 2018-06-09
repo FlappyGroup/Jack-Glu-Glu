@@ -2,13 +2,14 @@ package org.academiadecodigo.stormrooters.flappy_bird;
 
 
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
+import org.academiadecodigo.stormrooters.flappy_bird.Obstacle.Cell;
+import org.academiadecodigo.stormrooters.flappy_bird.Obstacle.Obstacle;
 
 import java.util.LinkedList;
 
 public class Game {
 
-    private final int TRIGGER = 1300; // X pixel who triggers a new obstacle;
-    private final int DELAY = 10;
+    private final int DELAY = 7;
     public static final int PADDING = 10;
 
     public static final int FIELD_HEIGHT = 500;
@@ -18,7 +19,7 @@ public class Game {
     private Rectangle field;
     private LinkedList<Obstacle> obstacles;
 
-    private int testarEspaços;
+    private int spacer;
 
 
     /**
@@ -26,7 +27,6 @@ public class Game {
      * create and add the container with the first obstacles
      */
     public void init() {
-
 
 
         //creating the field                     W                 H
@@ -38,7 +38,7 @@ public class Game {
 
         // creating bird
         this.bird = new Bird(PADDING + 100, PADDING + 200, 50, 50);
-        testarEspaços = 0;
+        spacer = 0;
     }
 
     /**
@@ -48,8 +48,8 @@ public class Game {
     public void runGame() throws InterruptedException {
 
 
+        while (!bird.isDead()) {
 
-        while (true) {
             createObstacle();
             //delay between cycles
             Thread.sleep(DELAY);
@@ -65,6 +65,8 @@ public class Game {
             collisionChecker();
 
         }
+
+        System.out.println("gameover");
     }
 
     /**
@@ -73,15 +75,15 @@ public class Game {
      */
     public void collisionChecker() {
 
-        /*Obstacle top = topObstacles.peek();
-        Obstacle bottom = bottomObstacles.peek();
+        Obstacle obstacle = obstacles.peek();
+        Cell topCell = obstacle.getTopObstacle();
 
-        int topObstacleY = top.getY();
-        int topObstacleX = top.getX();
-        int topObstacleWidth = top.getWidth();
-        int topObstacleHeight = top.getHeight();
+        int topCellY = topCell.getY();
+        int topCellX = topCell.getX();
+        int topCellWidth = topCell.getWidth();
+        int topCellHeight = topCell.getHeight();
 
-        int bottomObstacleY = bottom.getY();
+        int bottomCellY = obstacle.getBottomObstacle().getY();
 
         int birdY = bird.getY();
         int birdX = bird.getX();
@@ -89,10 +91,10 @@ public class Game {
         int birdHeight = bird.getHeight();
 
 
-        // checking if obstacles it the edge of the field and delete NOT TESTED
-        if (topObstacleX + topObstacleWidth <= field.getX()) {
-            deleteObstacles();
-            createObstacle();
+        // checking if obstacles it the edge of the field and delete
+        if (topCellX + topCellWidth <= field.getX()) {
+            //deleteObstacles();
+            //createObstacle();
         }
 
         //checking collision with ground/roof
@@ -104,24 +106,24 @@ public class Game {
             return;
         }
 
-        // checking collision with obstacles NOT TESTED
-        if (birdX + birdWidth < topObstacleX || birdX > topObstacleX + topObstacleWidth) {
+        // checking collision with obstacles
+        if (birdX + birdWidth < topCellX || birdX > topCellX + topCellWidth) {
             return;
         }
 
 
         // checking collision with top obstacles
-        if (birdY <= topObstacleY + topObstacleHeight) {
+        if (birdY <= topCellY + topCellHeight) {
             bird.die();
             return;
         }
 
 
-        if (birdY + birdHeight >= bottomObstacleY) {
+        if (birdY + birdHeight >= bottomCellY) {
             bird.die();
             return;
         }
-        */
+
     }
 
     /**
@@ -140,20 +142,21 @@ public class Game {
 
         if (obstacles.size() <= 4) {
 
-            testarEspaços--;
+            spacer--;
 
-            if (testarEspaços <= 0) {
+            if (spacer <= 0) {
+
                 Obstacle obst = new Obstacle(numberGap());
-                testarEspaços = 350;
+                spacer = 350;
                 obst.objectInit();
                 obstacles.add(obst);
-
             }
 
         }
     }
 
     private int numberGap() {
+
         if (obstacles.isEmpty()) {
 
             return 4;
@@ -161,22 +164,20 @@ public class Game {
         int number = obstacles.getLast().getMiddleGap();
 
         if (number == 2) {
-            return number + 2;
 
+            return number + 2;
         }
 
         if (number == 8) {
 
-
-            return number - 8;
-
+            return number - 2;
         }
 
         double random = Math.random();
 
         if (random > 0.5) {
-            return number + 2;
 
+            return number + 2;
         }
         return number - 2;
 

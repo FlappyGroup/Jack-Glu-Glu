@@ -79,8 +79,10 @@ public class Bird implements KeyboardHandler {
             case KeyboardEvent.KEY_UP:
                 move(Direction.UP);
                 break;
+
             case KeyboardEvent.KEY_DOWN:
                 move(Direction.DOWN);
+
             case KeyboardEvent.KEY_SPACE:
                 ciclesRising = 50;
                 break;
@@ -125,6 +127,10 @@ public class Bird implements KeyboardHandler {
     public void fly() {
 
 
+    }
+
+    public boolean isDead() {
+        return isDead;
     }
 
     public int getHeight() {
