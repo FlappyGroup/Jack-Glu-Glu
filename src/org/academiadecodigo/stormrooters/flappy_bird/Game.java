@@ -83,7 +83,7 @@ public class Game {
         int topCellWidth = topCell.getWidth();
         int topCellHeight = topCell.getHeight();
 
-        int bottomCellY = obstacle.getBottomObstacle().getY();
+        int bottomCellY = obstacle.getBottomObstacle().getY();    //??????????????????????????
 
         int birdY = bird.getY();
         int birdX = bird.getX();
@@ -92,21 +92,21 @@ public class Game {
 
 
         // checking if obstacles it the edge of the field and delete
-        if (topCellX <= field.getX()) {
+        if (topCellX <= field.getX()) {                          //Aqui não devia ser o width?????
             recycleObstacle();
         }
 
         //checking collision with ground/roof
 
-        if (birdY <= field.getY() ||
-                (birdY + birdHeight) >= (field.getY() + field.getHeight())) {
+        if (birdY <= field.getY()
+                || (birdY + birdHeight) >= (field.getY() + field.getHeight())) {
 
             bird.die();
             return;
         }
 
         // checking collision with obstacles
-        if (birdX + birdWidth < topCellX || birdX > topCellX + topCellWidth) {
+        if (birdX + birdWidth < topCellX || birdX > topCellX + topCellWidth) {   //TODO: qué ito?
             return;
         }
 
