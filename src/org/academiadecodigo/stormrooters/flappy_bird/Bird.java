@@ -14,7 +14,7 @@ public class Bird implements KeyboardHandler {
 
     public Bird(int x, int y) {
 
-        this.hitBox1 = new Picture(x, y, "resources/mine-small.png");
+        this.hitBox1 = new Picture(x, y, "resources/player-fast.gif");
         this.hitBox1.draw();
         addEventsToKeyboard();
 

@@ -25,7 +25,8 @@ public class Game {
 
     /**
      * prepare the game to start: - Draw field
-     * create and add the container with the first obstacles
+     * create the container for the obstacles
+     * create the bird
      */
     public void init() {
 
@@ -96,7 +97,7 @@ public class Game {
         int birdHeight = bird.getHeight();
 
 
-        // checking if obstacles it the edge of the field and delete
+        // checking if obstacles hit the edge of the field and delete
         if (topCellX <= field.getX()) {
             recycleObstacle();
         }
@@ -104,7 +105,7 @@ public class Game {
         //checking collision with ground/roof
 
         if (birdY <= field.getY() ||
-                (birdY + birdHeight) >= (field.getY() + field.getHeight())) {
+                (birdY + birdHeight) >= field.getHeight()) {
 
             bird.die();
             return;
