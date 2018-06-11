@@ -65,7 +65,6 @@ public class Swimmer implements KeyboardHandler {
         if (atSprite >= spritsPath.size()){
             atSprite = 1;
         }
-        System.out.println(atSprite);
         picture.load(spritsPath.get(atSprite));
         picture.draw();
     }
