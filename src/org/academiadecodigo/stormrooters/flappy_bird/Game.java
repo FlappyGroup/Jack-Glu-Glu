@@ -5,6 +5,7 @@ import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 import org.academiadecodigo.stormrooters.flappy_bird.Obstacle.Cell;
 import org.academiadecodigo.stormrooters.flappy_bird.Obstacle.Obstacle;
+import org.academiadecodigo.stormrooters.flappy_bird.swimmer.Swimmer;
 
 import java.util.LinkedList;
 
@@ -16,7 +17,7 @@ public class Game {
     public static final int FIELD_HEIGHT = 495;
     public static final int FIELD_WIGHT = 1500;
 
-    private Bird bird;
+    private Swimmer swimmer;
     private Rectangle field;
     private LinkedList<Obstacle> obstacles;
 
@@ -26,7 +27,7 @@ public class Game {
     /**
      * prepare the game to start: - Draw field
      * create the container for the obstacles
-     * create the bird
+     * create the swimmer
      */
     public void init() {
 
@@ -41,8 +42,8 @@ public class Game {
         // creating obstacle lists
         this.obstacles = new LinkedList<>();
 
-        // creating bird
-        this.bird = new Bird(PADDING + 100, PADDING + 200);
+        // creating swimmer
+        this.swimmer = new Swimmer(PADDING + 100, PADDING + 200);
         spacer = 0;
     }
 
@@ -52,9 +53,10 @@ public class Game {
      */
     public void runGame() throws InterruptedException {
 
+        int delayAnimation = 30;
 
-        while (!bird.isDead()) {
-
+        while (!swimmer.isDead()) {
+            delayAnimation--;
             createObstacle();
 
             //delay between cycles
@@ -66,9 +68,14 @@ public class Game {
                 obstacle.move();
             }
 
-            bird.move();
+            swimmer.move();
 
             collisionChecker();
+
+            if (delayAnimation <= 0) {
+                swimmer.nextSprit();
+                delayAnimation = 30;
+            }
 
         }
 
@@ -76,7 +83,7 @@ public class Game {
     }
 
     /**
-     * Check collision of bird with top, ground and obstacles
+     * Check collision of swimmer with top, ground and obstacles
      * and obstacles with the right wall
      */
     public void collisionChecker() {
@@ -91,10 +98,10 @@ public class Game {
 
         int bottomCellY = obstacle.getBottomObstacle().getY();
 
-        int birdY = bird.getY();
-        int birdX = bird.getX();
-        int birdWidth = bird.getWidth();
-        int birdHeight = bird.getHeight();
+        int birdY = swimmer.getY();
+        int birdX = swimmer.getX();
+        int birdWidth = swimmer.getWidth();
+        int birdHeight = swimmer.getHeight();
 
 
         // checking if obstacles hit the edge of the field and delete
@@ -107,11 +114,11 @@ public class Game {
         if (birdY <= field.getY() ||
                 (birdY + birdHeight) >= field.getHeight()) {
 
-            bird.die();
+            swimmer.die();
             return;
         }
 
-        // checking collision with obstacles
+        // checking if swimmer is between obstacles
         if (birdX + birdWidth < topCellX || birdX > topCellX + topCellWidth) {
             return;
         }
@@ -119,13 +126,13 @@ public class Game {
 
         // checking collision with top obstacles
         if (birdY <= topCellY + topCellHeight) {
-            bird.die();
+            swimmer.die();
             return;
         }
 
 
         if (birdY + birdHeight >= bottomCellY) {
-            bird.die();
+            swimmer.die();
             return;
         }
 

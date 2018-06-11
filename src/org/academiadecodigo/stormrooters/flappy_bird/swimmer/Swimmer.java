@@ -1,24 +1,36 @@
-package org.academiadecodigo.stormrooters.flappy_bird;
+package org.academiadecodigo.stormrooters.flappy_bird.swimmer;
 
 import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
+import org.academiadecodigo.stormrooters.flappy_bird.Direction;
 
-public class Bird implements KeyboardHandler {
+import java.util.ArrayList;
+
+public class Swimmer implements KeyboardHandler {
 
     private boolean isDead;
-    private Picture hitBox1;
+    private ArrayList<String> spritsPath;
+    private Picture picture;
+    private int atSprite;
     private int cyclesRising;
 
-    public Bird(int x, int y) {
+    public Swimmer(int x, int y) {
 
-        this.hitBox1 = new Picture(x, y, "resources/player-fast.gif");
-        this.hitBox1.draw();
+        this.atSprite = 1;
+        this.spritsPath = new ArrayList<>();
+
+        for (int i = 1; i <= 7; i++) {
+            spritsPath.add("resources/swimmer/swimmer" + i + ".png");
+        }
+
+        picture = new Picture(x, y, spritsPath.get(atSprite));
+
+
+        this.picture.draw();
         addEventsToKeyboard();
-
-
     }
 
     /**
@@ -42,9 +54,20 @@ public class Bird implements KeyboardHandler {
 
         }
 
-        this.hitBox1.translate(0, newYIncrement);
+        this.picture.translate(0, newYIncrement);
 
 
+    }
+
+    public void nextSprit() {
+
+        atSprite++;
+        if (atSprite >= spritsPath.size()){
+            atSprite = 1;
+        }
+        System.out.println(atSprite);
+        picture.load(spritsPath.get(atSprite));
+        picture.draw();
     }
 
     /**
@@ -55,15 +78,15 @@ public class Bird implements KeyboardHandler {
 
         if (cyclesRising > 0) {
 
-           // this.hitBox.translate(0, -1);
-            this.hitBox1.translate(0, -1);
+            // this.hitBox.translate(0, -1);
+            this.picture.translate(0, -1);
             cyclesRising--;
             return;
         }
 
 
-       // this.hitBox.translate(0, 1);
-        this.hitBox1.translate(0,1);
+        // this.hitBox.translate(0, 1);
+        this.picture.translate(0, 1);
 
 
     }
@@ -128,19 +151,19 @@ public class Bird implements KeyboardHandler {
     }
 
     public int getHeight() {
-        return hitBox1.getHeight();
+        return picture.getHeight();
     }
 
     public int getWidth() {
-        return hitBox1.getWidth();
+        return picture.getWidth();
     }
 
     public int getX() {
-        return hitBox1.getX();
+        return picture.getX();
     }
 
     public int getY() {
-        return hitBox1.getY();
+        return picture.getY();
     }
 }
 
