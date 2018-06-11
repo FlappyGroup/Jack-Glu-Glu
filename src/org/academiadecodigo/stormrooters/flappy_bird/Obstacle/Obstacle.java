@@ -2,7 +2,7 @@ package org.academiadecodigo.stormrooters.flappy_bird.Obstacle;
 
 
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
-import org.academiadecodigo.stormrooters.flappy_bird.Game;
+import org.academiadecodigo.stormrooters.flappy_bird.game.Game;
 
 import java.util.ArrayList;
 

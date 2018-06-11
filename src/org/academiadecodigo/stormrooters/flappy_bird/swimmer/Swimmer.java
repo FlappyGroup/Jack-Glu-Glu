@@ -22,7 +22,7 @@ public class Swimmer implements KeyboardHandler {
 
     public Swimmer(int x, int y) {
 
-        this.atSprite = 7;
+        this.atSprite = 1;
         this.spritesPath = new ArrayList<>();
         this.hitBoxes = new HashMap<>();
 
@@ -30,7 +30,7 @@ public class Swimmer implements KeyboardHandler {
             spritesPath.add("resources/swimmer/swimmer" + i + ".png");
         }
 
-        picture = new Picture(x, y, spritesPath.get(atSprite - 1));
+        picture = new Picture(x, y, spritesPath.get(atSprite-1));
     }
 
     public void init() {
@@ -43,6 +43,7 @@ public class Swimmer implements KeyboardHandler {
     }
 
     public void drawHitBoxes() {
+
         Rectangle[] hitBoxes = this.hitBoxes.get(atSprite);
         for (Rectangle rectangle : hitBoxes) {
             rectangle.draw();
@@ -114,28 +115,33 @@ public class Swimmer implements KeyboardHandler {
         switch (direction) {
 
             case UP:
-                newYIncrement = -1;
+                newYIncrement = -2;
                 break;
 
             case DOWN:
-                newYIncrement = 1;
-
+                newYIncrement = 2;
                 break;
 
         }
 
         this.picture.translate(0, newYIncrement);
+        for (Rectangle[] hitBoxes : hitBoxes.values()) {
 
+            for (Rectangle hitBox : hitBoxes) {
+
+                hitBox.translate(0, newYIncrement);
+            }
+        }
 
     }
 
-    public void nextSprit() {
+    public void nextSprite() {
 
         atSprite++;
         if (atSprite >= spritesPath.size()) {
             atSprite = 1;
         }
-        picture.load(spritesPath.get(atSprite));
+        picture.load(spritesPath.get(atSprite - 1));
         picture.draw();
     }
 
@@ -182,7 +188,7 @@ public class Swimmer implements KeyboardHandler {
 
             case KeyboardEvent.KEY_DOWN:
                 move(Direction.DOWN);
-
+                break;
             case KeyboardEvent.KEY_SPACE:
                 cyclesRising = 40;
                 break;
@@ -205,8 +211,8 @@ public class Swimmer implements KeyboardHandler {
         pressDown.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
 
         KeyboardEvent pressSpace = new KeyboardEvent();
-        pressDown.setKey(KeyboardEvent.KEY_SPACE);
-        pressDown.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
+        pressSpace.setKey(KeyboardEvent.KEY_SPACE);
+        pressSpace.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
 
         keyboard.addEventListener(pressUp);
         keyboard.addEventListener(pressDown);
@@ -224,20 +230,20 @@ public class Swimmer implements KeyboardHandler {
         return isDead;
     }
 
-    public int getHeight() {
-        return picture.getHeight();
-    }
-
-    public int getWidth() {
-        return picture.getWidth();
-    }
-
     public int getX() {
         return picture.getX();
     }
 
     public int getY() {
         return picture.getY();
+    }
+
+    public HashMap<Integer, Rectangle[]> getHitBoxes() {
+        return hitBoxes;
+    }
+
+    public int getAtSprite() {
+        return atSprite;
     }
 }
 
