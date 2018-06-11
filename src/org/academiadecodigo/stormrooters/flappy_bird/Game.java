@@ -41,7 +41,7 @@ public class Game {
         this.obstacles = new LinkedList<>();
 
         // creating bird
-        this.bird = new Bird(PADDING + 100, PADDING + 200, 50, 50);
+        this.bird = new Bird(PADDING + 100, PADDING + 200);
         spacer = 0;
     }
 
@@ -109,7 +109,7 @@ public class Game {
             bird.die();
             return;
         }
-/*
+
         // checking collision with obstacles
         if (birdX + birdWidth < topCellX || birdX > topCellX + topCellWidth) {
             return;
@@ -126,7 +126,7 @@ public class Game {
         if (birdY + birdHeight >= bottomCellY) {
             bird.die();
             return;
-        }*/
+        }
 
     }
 
@@ -139,8 +139,6 @@ public class Game {
         obstacle.deleteCell();
         obstacle.setUsed(false);
         obstacles.addLast(obstacle);
-
-
     }
 
 
@@ -159,7 +157,7 @@ public class Game {
                 Obstacle obst = new Obstacle();
                 spacer = 300;
                 obst.objectInit();
-                obst.deleteGap(numberGap());
+                obst.deleteGap(generateGap());
                 obstacles.add(obst);
                 return;
 
@@ -170,13 +168,11 @@ public class Game {
                 if (!obstacles.get(i).getUsed()) {
                     spacer = 300;
                     obstacles.get(i).translateCells();
-                    obstacles.get(i).deleteGap(numberGap());
+                    obstacles.get(i).deleteGap(generateGap());
                     obstacles.get(i).setUsed(true);
                     break;
 
                 }
-
-
             }
         }
     }
@@ -187,7 +183,7 @@ public class Game {
      *
      * @return int where the center of the next gap will be
      */
-    private int numberGap() {
+    private int generateGap() {
 
         if (obstacles.isEmpty()) {
 
@@ -213,13 +209,19 @@ public class Game {
         return number - 2;
     }
 
+    /**
+     * Gets last obstacle with property used=true
+     *
+     * @return a Obstacles
+     */
+
     public Obstacle getLastUsedObstacle() {
 
         for (int i = obstacles.size() - 1; i >= 0; i--) {
 
-              if (obstacles.get(i).getUsed()){
-                  return obstacles.get(i);
-              }
+            if (obstacles.get(i).getUsed()) {
+                return obstacles.get(i);
+            }
         }
 
         return null;

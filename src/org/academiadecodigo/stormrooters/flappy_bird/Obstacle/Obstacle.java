@@ -44,6 +44,9 @@ public class Obstacle {
 
     }
 
+    /**
+     * delete all cells from canvas and set all cells status to false
+     */
     public void deleteCell() {
 
         for (int i = 0; i < cells.size(); i++) {
@@ -55,6 +58,11 @@ public class Obstacle {
 
     }
 
+    /**
+     * Delete cells 3 cells withdraw  numberGap as middle
+     *
+     * @param numberGap middle of the gap received from generateGap
+     */
 
     public void deleteGap(int numberGap) {
 
@@ -64,13 +72,11 @@ public class Obstacle {
 
             cells.get(i).delete();
             cells.get(i).setOff();
-
-
         }
     }
 
     /**
-     * moves all object right
+     * moves all used object right
      */
     public void move() {
 
@@ -86,7 +92,9 @@ public class Obstacle {
 
     }
 
-
+    /**
+     * moves obstacle to the begin (all cells) and set as used
+     */
     public void translateCells() {
 
         for (int i = 0; i < cells.size(); i++) {
@@ -118,7 +126,6 @@ public class Obstacle {
      *
      * @return Cell
      */
-
     public Cell getBottomObstacle() {
 
         for (int i = cells.size() - 1; i >= 0; i--) {

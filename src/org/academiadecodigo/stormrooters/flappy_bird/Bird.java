@@ -1,27 +1,21 @@
 package org.academiadecodigo.stormrooters.flappy_bird;
 
-import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
-import java.awt.*;
-
 public class Bird implements KeyboardHandler {
 
     private boolean isDead;
-    //private Rectangle hitBox;
     private Picture hitBox1;
-    private int ciclesRising;
+    private int cyclesRising;
 
-    public Bird(int x, int y, int width, int height) {
+    public Bird(int x, int y) {
 
-       // this.hitBox = new Rectangle(x, y, width, height);
-        this.hitBox1 = new Picture(x, y, "PNG/enemies/mine.png");
+        this.hitBox1 = new Picture(x, y, "resources/mine-small.png");
         this.hitBox1.draw();
-       // this.hitBox.fill();
         addEventsToKeyboard();
 
 
@@ -48,21 +42,22 @@ public class Bird implements KeyboardHandler {
 
         }
 
-        //this.hitBox.translate(0, newYIncrement);
         this.hitBox1.translate(0, newYIncrement);
 
 
     }
 
-
+    /**
+     * Move swimmer up if cyclesRising > 0
+     */
     public void move() {
 
 
-        if (ciclesRising > 0) {
+        if (cyclesRising > 0) {
 
            // this.hitBox.translate(0, -1);
             this.hitBox1.translate(0, -1);
-            ciclesRising--;
+            cyclesRising--;
             return;
         }
 
@@ -73,7 +68,9 @@ public class Bird implements KeyboardHandler {
 
     }
 
-
+    /**
+     * set property isDead to true
+     */
     public void die() {
         isDead = true;
     }
@@ -90,7 +87,7 @@ public class Bird implements KeyboardHandler {
                 move(Direction.DOWN);
 
             case KeyboardEvent.KEY_SPACE:
-                ciclesRising = 40;
+                cyclesRising = 40;
                 break;
 
         }
@@ -123,15 +120,6 @@ public class Bird implements KeyboardHandler {
 
     @Override
     public void keyReleased(KeyboardEvent keyboardEvent) {
-
-    }
-
-
-    /**
-     * set the cyclesRising to the number of cycles  where the bird is rising
-     */
-    public void fly() {
-
 
     }
 
