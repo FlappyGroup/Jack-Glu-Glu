@@ -1,5 +1,6 @@
 package org.academiadecodigo.stormrooters.flappy_bird.swimmer;
 
+import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
@@ -8,29 +9,98 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 import org.academiadecodigo.stormrooters.flappy_bird.Direction;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Swimmer implements KeyboardHandler {
 
     private boolean isDead;
-    private ArrayList<String> spritsPath;
+    private ArrayList<String> spritesPath;
     private Picture picture;
+    private HashMap<Integer, Rectangle[]> hitBoxes;
     private int atSprite;
     private int cyclesRising;
 
     public Swimmer(int x, int y) {
 
-        this.atSprite = 1;
-        this.spritsPath = new ArrayList<>();
+        this.atSprite = 7;
+        this.spritesPath = new ArrayList<>();
+        this.hitBoxes = new HashMap<>();
 
         for (int i = 1; i <= 7; i++) {
-            spritsPath.add("resources/swimmer/swimmer" + i + ".png");
+            spritesPath.add("resources/swimmer/swimmer" + i + ".png");
         }
 
-        picture = new Picture(x, y, spritsPath.get(atSprite));
+        picture = new Picture(x, y, spritesPath.get(atSprite - 1));
+    }
 
+    public void init() {
 
         this.picture.draw();
         addEventsToKeyboard();
+        for (int i = 1; i <= 7; i++) {
+            hitBoxes.put(i, generateHitBox(i));
+        }
+    }
+
+    public void drawHitBoxes() {
+        Rectangle[] hitBoxes = this.hitBoxes.get(atSprite);
+        for (Rectangle rectangle : hitBoxes) {
+            rectangle.draw();
+        }
+    }
+
+    private Rectangle[] generateHitBox(int number) {
+        switch (number) {
+            case 1:
+                return new Rectangle[]{
+                        new Rectangle(getX(), getY(), 15, 42),
+                        new Rectangle(getX() + 15, getY() + 10, 56, 20),
+                        new Rectangle(getX() + 73, getY(), 15, 17)
+
+                };
+
+            case 2:
+                return new Rectangle[]{
+                        new Rectangle(getX() + 3, getY() + 13, 61, 21),
+                        new Rectangle(getX() + 71, getY(), 19, 20)
+                };
+            case 3:
+                return new Rectangle[]{
+                        new Rectangle(getX() + 2, getY() + 16, 36, 15),
+                        new Rectangle(getX() + 39, getY() + 11, 30, 17),
+                        new Rectangle(getX() + 72, getY() + 2, 18, 17)
+                };
+
+            case 4:
+                return new Rectangle[]{
+                        new Rectangle(getX() + 3, getY() + 11, 61, 21),
+                        new Rectangle(getX() + 71, getY(), 19, 20)
+                };
+
+            case 5:
+                return new Rectangle[]{
+                        new Rectangle(getX(), getY(), 15, 42),
+                        new Rectangle(getX() + 15, getY() + 10, 56, 22),
+                        new Rectangle(getX() + 73, getY(), 15, 17)
+
+                };
+            case 6:
+                return new Rectangle[]{
+                        new Rectangle(getX() + 3, getY() + 11, 61, 17),
+                        new Rectangle(getX() + 71, getY(), 19, 20)
+                };
+
+            case 7:
+                return new Rectangle[]{
+                        new Rectangle(getX() + 2, getY() + 18, 36, 13),
+                        new Rectangle(getX() + 39, getY() + 11, 30, 15),
+                        new Rectangle(getX() + 72, getY() + 2, 18, 17)
+                };
+
+            default:
+                System.out.println(" boken @ Swimer generateHitBoxes");
+                return null;
+        }
     }
 
     /**
@@ -62,10 +132,10 @@ public class Swimmer implements KeyboardHandler {
     public void nextSprit() {
 
         atSprite++;
-        if (atSprite >= spritsPath.size()){
+        if (atSprite >= spritesPath.size()) {
             atSprite = 1;
         }
-        picture.load(spritsPath.get(atSprite));
+        picture.load(spritesPath.get(atSprite));
         picture.draw();
     }
 
@@ -74,19 +144,23 @@ public class Swimmer implements KeyboardHandler {
      */
     public void move() {
 
+        int movement = 1;
 
         if (cyclesRising > 0) {
 
-            // this.hitBox.translate(0, -1);
-            this.picture.translate(0, -1);
+            movement = -1;
             cyclesRising--;
-            return;
         }
 
+        this.picture.translate(0, movement);
 
-        // this.hitBox.translate(0, 1);
-        this.picture.translate(0, 1);
+        for (Rectangle[] hitBoxes : hitBoxes.values()) {
 
+            for (Rectangle hitBox : hitBoxes) {
+
+                hitBox.translate(0, movement);
+            }
+        }
 
     }
 
@@ -95,6 +169,7 @@ public class Swimmer implements KeyboardHandler {
      */
     public void die() {
         isDead = true;
+        drawHitBoxes();
     }
 
     @Override

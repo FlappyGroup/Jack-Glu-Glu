@@ -45,6 +45,7 @@ public class Game {
         // creating swimmer
         this.swimmer = new Swimmer(PADDING + 100, PADDING + 200);
         spacer = 0;
+        swimmer.init();
     }
 
     /**
@@ -69,7 +70,7 @@ public class Game {
             }
 
             swimmer.move();
-
+            swimmer.drawHitBoxes();
             collisionChecker();
 
             if (delayAnimation <= 0) {
