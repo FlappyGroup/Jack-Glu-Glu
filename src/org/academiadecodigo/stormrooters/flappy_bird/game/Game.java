@@ -44,8 +44,6 @@ public class Game {
 
         // creating swimmer
         this.swimmer = new Swimmer();
-        spacer = 0;
-        swimmer.init();
         collisionDetector = new CollisionDetector(field, swimmer, obstacles);
     }
 
@@ -55,6 +53,8 @@ public class Game {
      */
     public void runGame() throws InterruptedException {
 
+        spacer = 0;
+        swimmer.init();
         int delayAnimation = 30;
 
         while (!swimmer.isDead()) {
