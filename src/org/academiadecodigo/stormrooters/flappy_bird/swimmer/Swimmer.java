@@ -15,6 +15,7 @@ public class Swimmer implements KeyboardHandler {
 
     private boolean isDead;
     private ArrayList<String> spritesPath;
+    private ArrayList<String> deathSpritesPath;
     private Picture picture;
     private HashMap<Integer, Rectangle[]> hitBoxes;
     private int atSprite;
@@ -24,10 +25,15 @@ public class Swimmer implements KeyboardHandler {
 
         this.atSprite = 1;
         this.spritesPath = new ArrayList<>();
+        this.deathSpritesPath = new ArrayList<>();
         this.hitBoxes = new HashMap<>();
 
-        for (int i = 1; i <= 7; i++) {
+        for (int i = 0; i <= 6; i++) {
             spritesPath.add("resources/swimmer/swimmer" + i + ".png");
+        }
+
+        for (int i = 0; i <= 3; i++) {
+            deathSpritesPath.add("resources/swimmer/swimmer-death" + i + ".png");
         }
 
         picture = new Picture(x, y, spritesPath.get(atSprite - 1));
@@ -35,8 +41,6 @@ public class Swimmer implements KeyboardHandler {
 
     public void init() {
 
-        Picture picture2 = new Picture(getX(),getY(),"resources/swimmer/swimmer-death0.png" );
-        picture2.draw();
         this.picture.draw();
         addEventsToKeyboard();
         for (int i = 1; i <= 7; i++) {
@@ -139,13 +143,26 @@ public class Swimmer implements KeyboardHandler {
 
     public void nextSprite() {
 
-        atSprite++;
-        if (atSprite >= spritesPath.size()) {
+        if (!isDead) {
+            atSprite++;
+            if (atSprite >= spritesPath.size()) {
+
+                atSprite = 1;
+            }
+            picture.load(spritesPath.get(atSprite));
+            picture.draw();
+            return;
+        }
+
+        if (atSprite >= deathSpritesPath.size()) {
 
             atSprite = 1;
         }
-        picture.load(spritesPath.get(atSprite - 1));
+        picture.load(deathSpritesPath.get(atSprite));
         picture.draw();
+        atSprite++;
+
+
     }
 
     /**
@@ -178,8 +195,10 @@ public class Swimmer implements KeyboardHandler {
      */
     public void die() {
 
-        System.out.println(atSprite + " " + spritesPath.get(atSprite - 1));
+        System.out.println(atSprite + " " + spritesPath.get(atSprite));
         isDead = true;
+        cyclesRising = 0;
+        atSprite = 1;
         drawHitBoxes();
     }
 
@@ -245,6 +264,10 @@ public class Swimmer implements KeyboardHandler {
 
     public HashMap<Integer, Rectangle[]> getHitBoxes() {
         return hitBoxes;
+    }
+
+    public int getHeight() {
+        return this.picture.getHeight();
     }
 
     public int getAtSprite() {

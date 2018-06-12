@@ -79,7 +79,27 @@ public class Game {
 
         }
 
-        System.out.println("gameover");
+        boolean animationEnd = false;
+        delayAnimation = 0;
+
+        while (!animationEnd) {
+
+            delayAnimation--;
+            Thread.sleep(DELAY);
+
+            if (delayAnimation <= 0) {
+
+                swimmer.nextSprite();
+                delayAnimation = 30;
+            }
+
+            swimmer.move();
+
+            if (swimmer.getY() + swimmer.getHeight() >= FIELD_HEIGHT) {
+
+                animationEnd = true;
+            }
+        }
     }
 
 
