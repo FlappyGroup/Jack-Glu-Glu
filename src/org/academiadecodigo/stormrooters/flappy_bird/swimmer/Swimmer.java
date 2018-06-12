@@ -7,6 +7,7 @@ import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 import org.academiadecodigo.stormrooters.flappy_bird.Direction;
+import org.academiadecodigo.stormrooters.flappy_bird.game.Game;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,12 +22,17 @@ public class Swimmer implements KeyboardHandler {
     private int atSprite;
     private int cyclesRising;
 
-    public Swimmer(int x, int y) {
+    public Swimmer() {
 
         this.atSprite = 1;
         this.spritesPath = new ArrayList<>();
         this.deathSpritesPath = new ArrayList<>();
         this.hitBoxes = new HashMap<>();
+
+
+    }
+
+    public void init() {
 
         for (int i = 0; i <= 6; i++) {
             spritesPath.add("resources/swimmer/swimmer" + i + ".png");
@@ -36,10 +42,7 @@ public class Swimmer implements KeyboardHandler {
             deathSpritesPath.add("resources/swimmer/swimmer-death" + i + ".png");
         }
 
-        picture = new Picture(x, y, spritesPath.get(atSprite - 1));
-    }
-
-    public void init() {
+        picture = new Picture(Game.PADDING + 100, Game.PADDING + 200, spritesPath.get(atSprite));
 
         this.picture.draw();
         addEventsToKeyboard();

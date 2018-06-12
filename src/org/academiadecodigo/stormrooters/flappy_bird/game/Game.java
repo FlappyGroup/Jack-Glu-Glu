@@ -19,7 +19,7 @@ public class Game {
     private Swimmer swimmer;
     private Rectangle field;
     private LinkedList<Obstacle> obstacles;
-    private CollisionDetector collisionDetecter;
+    private CollisionDetector collisionDetector;
 
     private int spacer;
 
@@ -43,10 +43,10 @@ public class Game {
         this.obstacles = new LinkedList<>();
 
         // creating swimmer
-        this.swimmer = new Swimmer(PADDING + 100, PADDING + 200);
+        this.swimmer = new Swimmer();
         spacer = 0;
         swimmer.init();
-        collisionDetecter = new CollisionDetector(field, swimmer, obstacles);
+        collisionDetector = new CollisionDetector(field, swimmer, obstacles);
     }
 
     /**
@@ -70,7 +70,7 @@ public class Game {
             }
 
             swimmer.move();
-            collisionDetecter.check();
+            collisionDetector.check();
 
             if (delayAnimation <= 0) {
                 swimmer.nextSprite();
