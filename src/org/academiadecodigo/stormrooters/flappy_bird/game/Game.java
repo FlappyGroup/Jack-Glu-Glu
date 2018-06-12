@@ -56,7 +56,9 @@ public class Game {
     public void runGame() throws InterruptedException {
 
         int delayAnimation = 30;
+
         while (!swimmer.isDead()) {
+
             delayAnimation--;
             createObstacle();
 
@@ -76,7 +78,6 @@ public class Game {
                 swimmer.nextSprite();
                 delayAnimation = 30;
             }
-
         }
 
         boolean animationEnd = false;
@@ -88,7 +89,6 @@ public class Game {
             Thread.sleep(DELAY);
 
             if (delayAnimation <= 0) {
-
                 swimmer.nextSprite();
                 delayAnimation = 30;
             }

@@ -32,6 +32,9 @@ public class Swimmer implements KeyboardHandler {
 
     }
 
+    /**
+     * generate and load all data needed for the swimmer
+     */
     public void init() {
 
         for (int i = 0; i <= 6; i++) {
@@ -51,7 +54,10 @@ public class Swimmer implements KeyboardHandler {
         }
     }
 
-    public void drawHitBoxes() {
+    /**
+     * show hitboxes for current sprite
+     */
+    private void drawHitBoxes() {
 
         Rectangle[] hitBoxes = this.hitBoxes.get(atSprite);
         for (Rectangle rectangle : hitBoxes) {
@@ -61,12 +67,12 @@ public class Swimmer implements KeyboardHandler {
 
     private Rectangle[] generateHitBox(int number) {
         switch (number) {
+
             case 1:
                 return new Rectangle[]{
                         new Rectangle(getX(), getY(), 15, 42),
                         new Rectangle(getX() + 15, getY() + 10, 56, 20),
                         new Rectangle(getX() + 73, getY(), 15, 17)
-
                 };
 
             case 2:
@@ -74,6 +80,7 @@ public class Swimmer implements KeyboardHandler {
                         new Rectangle(getX() + 3, getY() + 13, 61, 21),
                         new Rectangle(getX() + 71, getY(), 19, 20)
                 };
+
             case 3:
                 return new Rectangle[]{
                         new Rectangle(getX() + 2, getY() + 16, 36, 15),
@@ -92,8 +99,8 @@ public class Swimmer implements KeyboardHandler {
                         new Rectangle(getX(), getY(), 15, 42),
                         new Rectangle(getX() + 15, getY() + 10, 56, 22),
                         new Rectangle(getX() + 73, getY(), 15, 17)
-
                 };
+
             case 6:
                 return new Rectangle[]{
                         new Rectangle(getX() + 3, getY() + 11, 61, 17),
@@ -144,6 +151,10 @@ public class Swimmer implements KeyboardHandler {
 
     }
 
+    /**
+     * load next sprite if it is the after the last loads the first again
+     * if swimmer is dead load different spites
+     */
     public void nextSprite() {
 
         if (!isDead) {
@@ -152,6 +163,7 @@ public class Swimmer implements KeyboardHandler {
 
                 atSprite = 1;
             }
+
             picture.load(spritesPath.get(atSprite));
             picture.draw();
             return;
@@ -161,6 +173,7 @@ public class Swimmer implements KeyboardHandler {
 
             atSprite = 1;
         }
+
         picture.load(deathSpritesPath.get(atSprite));
         picture.draw();
         atSprite++;
@@ -198,7 +211,6 @@ public class Swimmer implements KeyboardHandler {
      */
     public void die() {
 
-        System.out.println(atSprite + " " + spritesPath.get(atSprite));
         isDead = true;
         cyclesRising = 0;
         atSprite = 1;

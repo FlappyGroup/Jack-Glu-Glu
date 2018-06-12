@@ -56,7 +56,7 @@ public class CollisionDetector {
                 continue;
             }
 
-            // checking if swimmer is between obstacles
+            // checking if hitbox is between obstacles
             if (hitBoxX + hitBoxWidth < topCellX || hitBoxX > topCellX + topCellWidth) {
                 continue;
             }
@@ -68,7 +68,7 @@ public class CollisionDetector {
                 continue;
             }
 
-
+            // checking collision with bottom obstacles
             if (hitBoxY + hitBoxHeight >= bottomCellY) {
                 swimmer.die();
                 continue;
