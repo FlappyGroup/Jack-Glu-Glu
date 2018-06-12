@@ -35,6 +35,8 @@ public class Swimmer implements KeyboardHandler {
 
     public void init() {
 
+        Picture picture2 = new Picture(getX(),getY(),"resources/swimmer/swimmer-death0.png" );
+        picture2.draw();
         this.picture.draw();
         addEventsToKeyboard();
         for (int i = 1; i <= 7; i++) {
