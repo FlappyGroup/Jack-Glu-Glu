@@ -30,7 +30,7 @@ public class Swimmer implements KeyboardHandler {
             spritesPath.add("resources/swimmer/swimmer" + i + ".png");
         }
 
-        picture = new Picture(x, y, spritesPath.get(atSprite-1));
+        picture = new Picture(x, y, spritesPath.get(atSprite - 1));
     }
 
     public void init() {
@@ -139,6 +139,7 @@ public class Swimmer implements KeyboardHandler {
 
         atSprite++;
         if (atSprite >= spritesPath.size()) {
+
             atSprite = 1;
         }
         picture.load(spritesPath.get(atSprite - 1));
@@ -174,6 +175,8 @@ public class Swimmer implements KeyboardHandler {
      * set property isDead to true
      */
     public void die() {
+
+        System.out.println(atSprite + " " + spritesPath.get(atSprite - 1));
         isDead = true;
         drawHitBoxes();
     }
