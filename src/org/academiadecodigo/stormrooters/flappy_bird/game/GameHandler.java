@@ -15,7 +15,7 @@ public class GameHandler {
         game.init();
 
         while (true) {
-
+/*
             boolean next = false;
             // missing condition to leave menu
 
@@ -23,11 +23,11 @@ public class GameHandler {
                 // menus
                 System.out.println("fuck");
                 //next = true;
-                Thread.sleep(100);
             }
-
+*/
+            Thread.sleep(500);
             game.runGame();
-
+/*
 
             // clean all obsjects and swimmer
             next = false;
@@ -41,8 +41,8 @@ public class GameHandler {
             }
 
             // cycles continue until someone press click
+*/
         }
-
 
     }
 

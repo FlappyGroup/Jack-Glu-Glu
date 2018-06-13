@@ -23,7 +23,7 @@ public class Obstacle {
         cells = new ArrayList<>();
         this.cellWidth = 100;
         this.cellHeight = 45;
-        used = true;
+        used = false;
     }
 
 
@@ -33,12 +33,10 @@ public class Obstacle {
     public void objectInit() {
 
         cells.add(new Cell(Game.FIELD_WIGHT - cellWidth, Game.PADDING, cellWidth, cellHeight));
-        cells.get(0).fill();
 
         for (int i = 1; i < SIZE; i++) {
             cells.add(new Cell(Game.FIELD_WIGHT - cellWidth, Game.PADDING +
                     (cellHeight * i), cellWidth, cellHeight));
-            cells.get(i).fill();
         }
 
 
@@ -98,10 +96,10 @@ public class Obstacle {
     public void translateCells() {
 
         for (int i = 0; i < cells.size(); i++) {
-
-            cells.get(i).translate(Game.FIELD_WIGHT - cellWidth, 0);
-            cells.get(i).fill();
-            cells.get(i).setOn();
+            Cell cell = cells.get(i);
+            cell.translate(Game.FIELD_WIGHT - cellWidth - cell.getX(), 0);
+            cell.fill();
+            cell.setOn();
         }
     }
 

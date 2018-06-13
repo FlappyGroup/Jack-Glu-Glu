@@ -187,7 +187,9 @@ public class Swimmer implements KeyboardHandler {
     public void move() {
 
         int movement = 1;
-
+        if (isDead) {
+            cyclesRising = 0;
+        }
         if (cyclesRising > 0) {
 
             movement = -1;
@@ -214,13 +216,32 @@ public class Swimmer implements KeyboardHandler {
         isDead = true;
         cyclesRising = 0;
         atSprite = 1;
-        drawHitBoxes();
+    }
+
+    public void reset() {
+        picture.delete();
+        isDead = false;
+        atSprite = 1;
+        picture.translate(0, -250);
+
+        for (Rectangle[] hitBoxes : hitBoxes.values()) {
+
+            for (Rectangle hitBox : hitBoxes) {
+
+                hitBox.translate(0, -250);
+            }
+        }
+    }
+
+    public void draw() {
+        picture.draw();
     }
 
     @Override
     public void keyPressed(KeyboardEvent keyboardEvent) {
 
         switch (keyboardEvent.getKey()) {
+
             case KeyboardEvent.KEY_UP:
                 move(Direction.UP);
                 break;
@@ -228,6 +249,7 @@ public class Swimmer implements KeyboardHandler {
             case KeyboardEvent.KEY_DOWN:
                 move(Direction.DOWN);
                 break;
+
             case KeyboardEvent.KEY_SPACE:
                 cyclesRising = 40;
                 break;

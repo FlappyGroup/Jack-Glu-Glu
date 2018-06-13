@@ -42,9 +42,16 @@ public class Game {
         // creating obstacle lists
         this.obstacles = new LinkedList<>();
 
+        for (int i = 0; i < 5; i++) {
+            Obstacle obstacle = new Obstacle();
+            obstacle.objectInit();
+            obstacles.add(obstacle);
+        }
+
         // creating swimmer
         this.swimmer = new Swimmer();
         collisionDetector = new CollisionDetector(field, swimmer, obstacles);
+        swimmer.init();
     }
 
     /**
@@ -54,8 +61,10 @@ public class Game {
     public void runGame() throws InterruptedException {
 
         spacer = 0;
-        swimmer.init();
-        int delayAnimation = 30;
+        int delayAnimation = 0;
+        swimmer.draw();
+
+        createObstacle();
 
         while (!swimmer.isDead()) {
 
@@ -100,6 +109,8 @@ public class Game {
                 animationEnd = true;
             }
         }
+        swimmer.reset();
+        resetAllObstacles();
     }
 
 
@@ -110,7 +121,6 @@ public class Game {
 
         spacer--;
 
-
         if (spacer <= 0) {
 
             if (obstacles.size() < 5) {
@@ -119,6 +129,7 @@ public class Game {
                 spacer = 300;
                 obst.objectInit();
                 obst.deleteGap(generateGap());
+
                 obstacles.add(obst);
                 return;
 
@@ -138,7 +149,6 @@ public class Game {
         }
     }
 
-
     /**
      * generate the number of next gap
      *
@@ -146,11 +156,13 @@ public class Game {
      */
     private int generateGap() {
 
-        if (obstacles.isEmpty()) {
+        Obstacle obstacle = getLastUsedObstacle();
+
+        if (obstacle == null) {
 
             return 4;
         }
-        int number = getLastUsedObstacle().getMiddleGap();
+        int number = obstacle.getMiddleGap();
 
         if (number == 2) {
 
@@ -186,6 +198,15 @@ public class Game {
         }
 
         return null;
+    }
+
+    public void resetAllObstacles() {
+
+        for (Obstacle obstacle : obstacles) {
+            obstacle.deleteCell();
+            obstacle.setUsed(false);
+        }
+
     }
 }
 
