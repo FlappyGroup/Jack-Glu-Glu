@@ -75,6 +75,8 @@ public class GameHandler implements MouseHandler {
 
         }
 
+        System.exit(0);
+
     }
 
     public void listener() {
