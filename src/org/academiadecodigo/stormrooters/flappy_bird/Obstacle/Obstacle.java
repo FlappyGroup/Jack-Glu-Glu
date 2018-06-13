@@ -1,7 +1,7 @@
 package org.academiadecodigo.stormrooters.flappy_bird.Obstacle;
 
 
-import org.academiadecodigo.simplegraphics.graphics.Rectangle;
+import org.academiadecodigo.simplegraphics.pictures.Picture;
 import org.academiadecodigo.stormrooters.flappy_bird.game.Game;
 
 import java.util.ArrayList;
@@ -16,6 +16,9 @@ public class Obstacle {
     private int middleGap;
     private boolean used;
 
+    private final String pathNormalSprite = "obstacle/normal.png";
+    private final String pathTopSprite = "obstacle/top.png";
+    private final String pathBottomSpite = "obstacle/bottom.png";
 
     public Obstacle() {
 
@@ -30,13 +33,13 @@ public class Obstacle {
     /**
      * create all the cells of obstacle
      */
-    public void objectInit() {
+    public void init() {
 
-        cells.add(new Cell(Game.FIELD_WIGHT - cellWidth, Game.PADDING, cellWidth, cellHeight));
+        cells.add(new Cell(Game.FIELD_WIGHT - cellWidth, Game.PADDING, pathBottomSpite));
 
         for (int i = 1; i < SIZE; i++) {
             cells.add(new Cell(Game.FIELD_WIGHT - cellWidth, Game.PADDING +
-                    (cellHeight * i), cellWidth, cellHeight));
+                    (cellHeight * i), pathNormalSprite));
         }
 
 
@@ -48,7 +51,6 @@ public class Obstacle {
     public void deleteCell() {
 
         for (int i = 0; i < cells.size(); i++) {
-
             cells.get(i).delete();
             cells.get(i).setOff();
         }
@@ -62,7 +64,7 @@ public class Obstacle {
      * @param numberGap middle of the gap received from generateGap
      */
 
-    public void deleteGap(int numberGap) {
+    public void configObstacle(int numberGap) {
 
         middleGap = numberGap;
 
@@ -70,6 +72,16 @@ public class Obstacle {
 
             cells.get(i).delete();
             cells.get(i).setOff();
+        }
+        getBottomCell().load(pathBottomSpite);
+        getTopCell().load(pathTopSprite);
+    }
+
+    public void drawCells() {
+        for (Cell cell : cells) {
+            if (cell.isStatus()) {
+                cell.draw();
+            }
         }
     }
 
@@ -82,7 +94,7 @@ public class Obstacle {
             return;
         }
 
-        for (Rectangle cell : cells) {
+        for (Picture cell : cells) {
 
             cell.translate(-1, 0);
         }
@@ -93,13 +105,13 @@ public class Obstacle {
     /**
      * moves obstacle to the begin (all cells) and set as used
      */
-    public void translateCells() {
+    public void reUseObstacle() {
 
         for (int i = 0; i < cells.size(); i++) {
             Cell cell = cells.get(i);
             cell.translate(Game.FIELD_WIGHT - cellWidth - cell.getX(), 0);
-            cell.fill();
             cell.setOn();
+            cell.load(pathNormalSprite);
         }
     }
 
@@ -108,7 +120,7 @@ public class Obstacle {
      *
      * @return Cell
      */
-    public Cell getTopObstacle() {
+    public Cell getTopCell() {
 
         for (int i = 0; i < cells.size(); i++) {
 
@@ -124,7 +136,7 @@ public class Obstacle {
      *
      * @return Cell
      */
-    public Cell getBottomObstacle() {
+    public Cell getBottomCell() {
 
         for (int i = cells.size() - 1; i >= 0; i--) {
 
