@@ -47,7 +47,7 @@ public class Swimmer implements KeyboardHandler {
 
         picture = new Picture(Game.PADDING + 100, Game.PADDING + 200, spritesPath.get(atSprite));
 
-        this.picture.draw();
+
         addEventsToKeyboard();
         for (int i = 1; i <= 7; i++) {
             hitBoxes.put(i, generateHitBox(i));
@@ -121,7 +121,7 @@ public class Swimmer implements KeyboardHandler {
     }
 
     /**
-     * move the bird up and down (if cycles rising > 0 move up)
+     * listener the bird up and down (if cycles rising > 0 listener up)
      */
 
     public void move(Direction direction) {

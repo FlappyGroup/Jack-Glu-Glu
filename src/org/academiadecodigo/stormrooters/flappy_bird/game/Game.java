@@ -56,7 +56,7 @@ public class Game {
 
     /**
      * check of collisions and
-     * move all Movables
+     * listener all Movables
      */
     public void runGame() throws InterruptedException {
 

@@ -1,8 +1,18 @@
 package org.academiadecodigo.stormrooters.flappy_bird.game;
 
-public class GameHandler {
+import org.academiadecodigo.simplegraphics.mouse.Mouse;
+import org.academiadecodigo.simplegraphics.mouse.MouseEvent;
+import org.academiadecodigo.simplegraphics.mouse.MouseEventType;
+import org.academiadecodigo.simplegraphics.mouse.MouseHandler;
+import org.academiadecodigo.simplegraphics.pictures.Picture;
+
+public class GameHandler implements MouseHandler {
 
     private Game game;
+    private boolean next = false;
+    private Picture menuPlay;
+    private Picture menuExit;
+    private boolean exit = false;
 
     public GameHandler() {
 
@@ -14,19 +24,38 @@ public class GameHandler {
 
         game.init();
 
-        while (true) {
-/*
-            boolean next = false;
+        menuPlay = new Picture(580, 250, "resources/Play.png");
+
+
+        listener();
+        menuExit = new Picture(580, 350, "resources/EXIT.png");
+
+        while (!exit) {
+
             // missing condition to leave menu
+
+            menuPlay.draw();
+            menuExit.draw();
 
             while (!next) {
                 // menus
                 System.out.println("fuck");
-                //next = true;
+                Thread.sleep(500);
+
+
             }
-*/
-            Thread.sleep(500);
+
+            menuPlay.delete();
+            menuExit.delete();
+
+            if (exit) {
+                break;
+            }
+
+
             game.runGame();
+
+            next = false;
 /*
 
             // clean all obsjects and swimmer
@@ -42,8 +71,40 @@ public class GameHandler {
 
             // cycles continue until someone press click
 */
+
+
         }
 
     }
 
+    public void listener() {
+        Mouse mouse = new Mouse(this);
+        mouse.addEventListener(MouseEventType.MOUSE_CLICKED);
+    }
+
+
+    @Override
+    public void mouseClicked(MouseEvent mouseEvent) {
+        double mousex = mouseEvent.getX();
+        double mouseY = mouseEvent.getY();
+
+        if (mousex > menuPlay.getX() && mousex < menuPlay.getX() + menuPlay.getWidth()
+                && mouseY > menuPlay.getY() && mouseY < menuPlay.getY() + menuPlay.getHeight()) {
+            next = true;
+
+
+        }
+
+        if (mousex > menuExit.getX() && mousex < menuExit.getX() + menuExit.getWidth()
+                && mouseY > menuExit.getY() && mouseY < menuExit.getY() + menuExit.getHeight()) {
+            exit = true;
+            next = true;
+        }
+
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent mouseEvent) {
+
+    }
 }
