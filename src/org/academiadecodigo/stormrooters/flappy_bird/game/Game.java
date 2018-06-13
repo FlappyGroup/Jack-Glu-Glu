@@ -3,6 +3,7 @@ package org.academiadecodigo.stormrooters.flappy_bird.game;
 
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
+import org.academiadecodigo.stormrooters.flappy_bird.Fish;
 import org.academiadecodigo.stormrooters.flappy_bird.Obstacle.Obstacle;
 import org.academiadecodigo.stormrooters.flappy_bird.swimmer.Swimmer;
 
@@ -20,7 +21,7 @@ public class Game {
     private Rectangle field;
     private LinkedList<Obstacle> obstacles;
     private CollisionDetector collisionDetector;
-
+    private LinkedList<Fish> fishes;
     private int spacer;
 
 
@@ -52,6 +53,11 @@ public class Game {
         this.swimmer = new Swimmer();
         collisionDetector = new CollisionDetector(field, swimmer, obstacles);
         swimmer.init();
+
+        fishes = new LinkedList<>();
+        Fish fish = new Fish();
+        fish.init();
+        fishes.add(fish);
     }
 
     /**
@@ -65,6 +71,7 @@ public class Game {
         swimmer.draw();
 
         createObstacle();
+        fishes.get(0).init();
 
         while (!swimmer.isDead()) {
 
@@ -74,17 +81,12 @@ public class Game {
             //delay between cycles
             Thread.sleep(DELAY);
 
-            //moving all obstacles
-            for (Obstacle obstacle : obstacles) {
+            moveAll();
 
-                obstacle.move();
-            }
-
-            swimmer.move();
             collisionDetector.check();
 
             if (delayAnimation <= 0) {
-                swimmer.nextSprite();
+                animateAll();
                 delayAnimation = 30;
             }
         }
@@ -207,6 +209,35 @@ public class Game {
             obstacle.setUsed(false);
         }
 
+    }
+
+    private void animateAll() {
+        swimmer.nextSprite();
+
+        for (Fish fish : fishes) {
+            fish.nextSprite();
+        }
+    }
+
+    private void moveAll() {
+        //moving all obstacles
+        for (Obstacle obstacle : obstacles) {
+
+            obstacle.move();
+        }
+
+        swimmer.move();
+
+        for (Fish fish : fishes) {
+            fish.move();
+        }
+    }
+
+    private void createFish() {
+
+        if (spacer < 70) {
+            return;
+        }
     }
 }
 
