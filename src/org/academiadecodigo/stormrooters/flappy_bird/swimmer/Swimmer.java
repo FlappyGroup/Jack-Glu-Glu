@@ -17,8 +17,6 @@ public class Swimmer implements KeyboardHandler {
     private final int maxCyclesRising = 30;
     private final int speedUp = -2;
     private final int speedDown = 2;
-    private final int numberOfSprites = 6;
-    private final int numberOfDeathSprites = 3;
 
     private boolean isDead;
     private ArrayList<String> spritesPath;
@@ -30,7 +28,7 @@ public class Swimmer implements KeyboardHandler {
 
     public Swimmer() {
 
-        this.atSprite = 0;
+        this.atSprite = 6;
         this.spritesPath = new ArrayList<>();
         this.deathSpritesPath = new ArrayList<>();
         this.hitBoxes = new HashMap<>();
@@ -43,11 +41,11 @@ public class Swimmer implements KeyboardHandler {
      */
     public void init() {
 
-        for (int i = 0; i <= numberOfSprites; i++) {
+        for (int i = 0; i <= 6; i++) {
             spritesPath.add("resources/swimmer/swimmer" + i + ".png");
         }
 
-        for (int i = 0; i <= numberOfDeathSprites; i++) {
+        for (int i = 0; i <= 3; i++) {
             deathSpritesPath.add("resources/swimmer/swimmer-death" + i + ".png");
         }
 
@@ -55,179 +53,20 @@ public class Swimmer implements KeyboardHandler {
 
 
         addEventsToKeyboard();
-        for (int i = 0; i <= numberOfSprites; i++) {
+        for (int i = 0; i <= 6; i++) {
             hitBoxes.put(i, generateHitBox(i));
         }
     }
 
     /**
-     * Move swimmer up if cyclesRising > 0
-     */
-    public void move() {
-
-        int movement = speedDown;
-        if (isDead) {
-            cyclesRising = 0;
-        }
-        if (cyclesRising > 0) {
-
-            movement = speedUp;
-            cyclesRising--;
-        }
-
-        this.picture.translate(0, movement);
-
-        for (Rectangle[] hitBoxes : hitBoxes.values()) {
-
-            for (Rectangle hitBox : hitBoxes) {
-
-                hitBox.translate(0, movement);
-            }
-        }
-
-    }
-
-    /**
-     * set property isDead to true
-     */
-    public void die() {
-
-        isDead = true;
-        cyclesRising = 0;
-        atSprite = 1;
-    }
-
-    public void reset() {
-        isDead = false;
-        atSprite = 1;
-        picture.translate(0, -picture.getY() / 2);
-        this.nextSprite();
-        picture.delete();
-
-        for (Rectangle[] hitBoxes : hitBoxes.values()) {
-
-            for (Rectangle hitBox : hitBoxes) {
-
-                hitBox.translate(0, -picture.getY() / 2);
-            }
-        }
-    }
-
-    public void draw() {
-        picture.draw();
-    }
-
-    @Override
-    public void keyPressed(KeyboardEvent keyboardEvent) {
-
-        switch (keyboardEvent.getKey()) {
-
-            case KeyboardEvent.KEY_UP:
-                break;
-
-            case KeyboardEvent.KEY_DOWN:
-                break;
-
-            case KeyboardEvent.KEY_SPACE:
-                cyclesRising = maxCyclesRising;
-                break;
-
-        }
-
-    }
-
-    @Override
-    public void keyReleased(KeyboardEvent keyboardEvent) {
-
-    }
-
-    public boolean isDead() {
-        return isDead;
-    }
-
-    private int getX() {
-        return picture.getX();
-    }
-
-    public int getY() {
-        return picture.getY();
-    }
-
-    public HashMap<Integer, Rectangle[]> getHitBoxes() {
-        return hitBoxes;
-    }
-
-    public int getHeight() {
-        return this.picture.getHeight();
-    }
-
-    public int getAtSprite() {
-        return atSprite;
-    }
-
-    /**
-     * load next sprite if it is the after the last loads the first again
-     * if swimmer is dead load different spites
-     */
-    public void nextSprite() {
-
-        if (!isDead) {
-            atSprite++;
-            if (atSprite >= spritesPath.size()) {
-
-                atSprite = 0;
-            }
-
-            picture.load(spritesPath.get(atSprite));
-            picture.draw();
-            return;
-        }
-
-        if (atSprite >= deathSpritesPath.size()) {
-
-            atSprite = 0;
-        }
-
-        picture.load(deathSpritesPath.get(atSprite));
-        picture.draw();
-        atSprite++;
-
-
-    }
-
-    /**
      * show hitboxes for current sprite
      */
-    private void drawHitBoxes() {
+    public void drawHitBoxes() {
 
         Rectangle[] hitBoxes = this.hitBoxes.get(atSprite);
         for (Rectangle rectangle : hitBoxes) {
             rectangle.draw();
         }
-    }
-
-    private void addEventsToKeyboard() {
-
-        Keyboard keyboard = new Keyboard(this);
-
-
-        KeyboardEvent pressUp = new KeyboardEvent();
-        pressUp.setKey(KeyboardEvent.KEY_UP);
-        pressUp.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
-
-        KeyboardEvent pressDown = new KeyboardEvent();
-        pressDown.setKey(KeyboardEvent.KEY_DOWN);
-        pressDown.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
-
-        KeyboardEvent pressSpace = new KeyboardEvent();
-        pressSpace.setKey(KeyboardEvent.KEY_SPACE);
-        pressSpace.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
-
-        keyboard.addEventListener(pressUp);
-        keyboard.addEventListener(pressDown);
-        keyboard.addEventListener(pressSpace);
-
-
     }
 
     private Rectangle[] generateHitBox(int number) {
@@ -284,6 +123,166 @@ public class Swimmer implements KeyboardHandler {
                 System.out.println(" boken @ Swimer generateHitBoxes");
                 return null;
         }
+    }
+
+    /**
+     * load next sprite if it is the after the last loads the first again
+     * if swimmer is dead load different spites
+     */
+    public void nextSprite() {
+
+        if (!isDead) {
+            atSprite++;
+            if (atSprite >= spritesPath.size()) {
+
+                atSprite = 0;
+            }
+
+            picture.load(spritesPath.get(atSprite));
+            picture.draw();
+            return;
+        }
+
+        if (atSprite >= deathSpritesPath.size()) {
+
+            atSprite = 0;
+        }
+
+        picture.load(deathSpritesPath.get(atSprite));
+        picture.draw();
+        atSprite++;
+
+
+    }
+
+    /**
+     * Move swimmer up if cyclesRising > 0
+     */
+    public void move() {
+
+        int movement = speedDown;
+        if (isDead) {
+            cyclesRising = 0;
+        }
+        if (cyclesRising > 0) {
+
+            movement = speedUp;
+            cyclesRising--;
+        }
+
+        this.picture.translate(0, movement);
+
+        for (Rectangle[] hitBoxes : hitBoxes.values()) {
+
+            for (Rectangle hitBox : hitBoxes) {
+
+                hitBox.translate(0, movement);
+            }
+        }
+
+    }
+
+    /**
+     * set property isDead to true
+     */
+    public void die() {
+
+        isDead = true;
+        cyclesRising = 0;
+        atSprite = 1;
+        drawHitBoxes();
+    }
+
+    public void reset() {
+        isDead = false;
+        atSprite = 1;
+        picture.translate(0, -250);
+        this.nextSprite();
+        picture.delete();
+
+        for (Rectangle[] hitBoxes : hitBoxes.values()) {
+
+            for (Rectangle hitBox : hitBoxes) {
+
+                hitBox.translate(0, -250);
+            }
+        }
+    }
+
+    public void draw() {
+        picture.draw();
+    }
+
+    @Override
+    public void keyPressed(KeyboardEvent keyboardEvent) {
+
+        switch (keyboardEvent.getKey()) {
+
+            case KeyboardEvent.KEY_UP:
+                break;
+
+            case KeyboardEvent.KEY_DOWN:
+                break;
+
+            case KeyboardEvent.KEY_SPACE:
+                cyclesRising = maxCyclesRising;
+                break;
+
+        }
+
+    }
+
+    public void addEventsToKeyboard() {
+
+        Keyboard keyboard = new Keyboard(this);
+
+
+        KeyboardEvent pressUp = new KeyboardEvent();
+        pressUp.setKey(KeyboardEvent.KEY_UP);
+        pressUp.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
+
+        KeyboardEvent pressDown = new KeyboardEvent();
+        pressDown.setKey(KeyboardEvent.KEY_DOWN);
+        pressDown.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
+
+        KeyboardEvent pressSpace = new KeyboardEvent();
+        pressSpace.setKey(KeyboardEvent.KEY_SPACE);
+        pressSpace.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
+
+        keyboard.addEventListener(pressUp);
+        keyboard.addEventListener(pressDown);
+        keyboard.addEventListener(pressSpace);
+
+
+    }
+
+    @Override
+    public void keyReleased(KeyboardEvent keyboardEvent) {
+
+    }
+
+    public boolean isDead() {
+        return isDead;
+    }
+
+    public int getX() {
+        return picture.getX();
+    }
+
+    public int getY() {
+        return picture.getY();
+    }
+
+    public HashMap<Integer, Rectangle[]> getHitBoxes() {
+        return hitBoxes;
+    }
+
+    public int getHeight() {
+        return this.picture.getHeight();
+    }
+
+    public int getAtSprite() {
+        return atSprite;
     }
 }
 

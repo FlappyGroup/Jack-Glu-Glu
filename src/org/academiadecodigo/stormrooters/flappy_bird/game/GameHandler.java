@@ -93,7 +93,8 @@ public class GameHandler implements MouseHandler {
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
         double mouseX = mouseEvent.getX();
-        double mouseY = mouseEvent.getY();
+        double mouseY = mouseEvent.getY() - 25 - Game.PADDING;
+
         if (mouseX > menuPlay.getX() && mouseX < menuPlay.getX() + menuPlay.getWidth()
                 && mouseY > menuPlay.getY() && mouseY < menuPlay.getY() + menuPlay.getHeight()) {
             next = true;
@@ -106,6 +107,7 @@ public class GameHandler implements MouseHandler {
             exit = true;
             next = true;
         }
+        System.out.println();
     }
 
     @Override

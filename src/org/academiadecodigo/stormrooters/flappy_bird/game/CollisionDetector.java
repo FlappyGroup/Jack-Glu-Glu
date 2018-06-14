@@ -80,7 +80,7 @@ public class CollisionDetector {
     /**
      * delete first obstacle on the queue
      */
-    private void recycleObstacle() {
+    public void recycleObstacle() {
 
         Obstacle obstacle = obstacles.poll();
         obstacle.deleteCell();

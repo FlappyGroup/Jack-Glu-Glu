@@ -11,7 +11,7 @@ import java.util.LinkedList;
 
 public class Game {
 
-    private int difficultyModifier = 200;
+    private int dificultyModifier = 200;
     private final int DELAY = 14;
     public static final int PADDING = 10;
 
@@ -71,19 +71,18 @@ public class Game {
      */
     public void runGame() throws InterruptedException {
 
-        difficultyModifier = 200;
+        dificultyModifier = 200;
         maxSpacer = 300;
         currentSpacer = 0;
         int delayAnimation = 0;
-
         swimmer.draw();
-        createObstacle();
 
+        createObstacle();
         while (!swimmer.isDead()) {
 
             delayAnimation--;
             currentSpacer--;
-            difficultyModifier--;
+            dificultyModifier--;
 
             createObstacle();
 
@@ -104,16 +103,14 @@ public class Game {
                 delayAnimation = 10;
             }
 
-            if (difficultyModifier <= 0) {
+            if (dificultyModifier <= 0) {
                 maxSpacer -= 10;
                 System.out.println(maxSpacer);
-                difficultyModifier = 200;
+                dificultyModifier = 200;
             }
         }
-
         mainSound.stop();
         deathSound.play(true);
-
         boolean animationEnd = false;
         delayAnimation = 0;
 
@@ -130,9 +127,9 @@ public class Game {
             swimmer.move();
 
             if (swimmer.getY() + swimmer.getHeight() >= FIELD_HEIGHT) {
+
                 animationEnd = true;
             }
-
         }
         deathSound.stop();
 
@@ -208,7 +205,7 @@ public class Game {
      * @return a Obstacles
      */
 
-    private Obstacle getLastUsedObstacle() {
+    public Obstacle getLastUsedObstacle() {
 
         for (int i = obstacles.size() - 1; i >= 0; i--) {
 
@@ -220,7 +217,7 @@ public class Game {
         return null;
     }
 
-    private void resetAllObstacles() {
+    public void resetAllObstacles() {
 
         for (Obstacle obstacle : obstacles) {
             obstacle.deleteCell();

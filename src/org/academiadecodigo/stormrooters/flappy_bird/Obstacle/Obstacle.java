@@ -11,8 +11,8 @@ public class Obstacle {
     private static final int SIZE = 11;
 
     private ArrayList<Cell> cells;
-    private final int cellHeight = 45;
-    private final int cellWidth = 100;
+    private int cellHeight;
+    private int cellWidth;
     private int middleGap;
     private boolean used;
 
@@ -24,6 +24,8 @@ public class Obstacle {
 
 
         cells = new ArrayList<>();
+        this.cellWidth = 100;
+        this.cellHeight = 45;
         used = false;
     }
 
