@@ -1,11 +1,10 @@
-package org.academiadecodigo.stormrooters.flappy_bird.game;
+package org.academiadecodigo.stormrooters.jackgluglu.game;
 
 
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
-import org.academiadecodigo.stormrooters.flappy_bird.Obstacle.Obstacle;
-import org.academiadecodigo.stormrooters.flappy_bird.Sound;
-import org.academiadecodigo.stormrooters.flappy_bird.swimmer.Swimmer;
+import org.academiadecodigo.stormrooters.jackgluglu.Obstacle.Obstacle;
+import org.academiadecodigo.stormrooters.jackgluglu.swimmer.Swimmer;
 
 import java.util.LinkedList;
 
@@ -24,9 +23,9 @@ public class Game {
     private Swimmer swimmer;
     private Rectangle field;
     private LinkedList<Obstacle> obstacles;
-    private CollisionDetector collisionDetector;
-    private Sound mainSound;
-    private Sound deathSound;
+    private org.academiadecodigo.stormrooters.jackgluglu.game.CollisionDetector collisionDetector;
+    private org.academiadecodigo.stormrooters.jackgluglu.Sound mainSound;
+    private org.academiadecodigo.stormrooters.jackgluglu.Sound deathSound;
     private int score;
 
     private int currentSpacer;
@@ -41,8 +40,8 @@ public class Game {
     public void init() {
 
 
-        mainSound = new Sound("/resources/sound.wav");
-        deathSound = new Sound("/resources/death.wav");
+        mainSound = new org.academiadecodigo.stormrooters.jackgluglu.Sound("/resources/sound.wav");
+        deathSound = new org.academiadecodigo.stormrooters.jackgluglu.Sound("/resources/death.wav");
 
         //creating the field                     W                 H
         field = new Rectangle(PADDING, PADDING, FIELD_WIGHT, FIELD_HEIGHT);
@@ -62,7 +61,7 @@ public class Game {
 
         // creating swimmer
         this.swimmer = new Swimmer();
-        collisionDetector = new CollisionDetector(field, swimmer, obstacles);
+        collisionDetector = new org.academiadecodigo.stormrooters.jackgluglu.game.CollisionDetector(field, swimmer, obstacles);
         swimmer.init();
 
         mainSound.loopIndef();
