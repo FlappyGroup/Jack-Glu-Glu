@@ -1,5 +1,7 @@
 package org.academiadecodigo.stormrooters.flappy_bird.game;
 
+import org.academiadecodigo.simplegraphics.graphics.Color;
+import org.academiadecodigo.simplegraphics.graphics.Text;
 import org.academiadecodigo.simplegraphics.mouse.Mouse;
 import org.academiadecodigo.simplegraphics.mouse.MouseEvent;
 import org.academiadecodigo.simplegraphics.mouse.MouseEventType;
@@ -15,10 +17,13 @@ public class GameHandler implements MouseHandler {
     private Picture menuExit;
     private boolean exit = false;
     private Picture title;
+    private int bestScore;
+    private Text highScore;
 
     public GameHandler() {
 
         this.game = new Game();
+        bestScore = 0;
 
     }
 
@@ -27,16 +32,17 @@ public class GameHandler implements MouseHandler {
         game.init();
 
         menuPlay = new Picture(580, 250, "resources/Play.png");
-
-
         listener();
+        highScore = new Text(1300, 450, bestScore + "");
+        highScore.grow(70,25);
+        highScore.setColor(Color.BLACK);
         menuExit = new Picture(580, 350, "resources/EXIT.png");
         title = new Picture(290, 50, "resources/title.png");
 
 
-
         while (!exit) {
-
+            highScore.setText("High Score: " +bestScore + "");
+            highScore.draw();
             // missing condition to leave menu
 
             menuPlay.draw();
@@ -48,7 +54,7 @@ public class GameHandler implements MouseHandler {
 
 
             }
-
+            highScore.delete();
             menuPlay.delete();
             menuExit.delete();
             title.delete();
@@ -58,26 +64,11 @@ public class GameHandler implements MouseHandler {
             }
 
 
-            game.runGame();
-
-            next = false;
-/*
-
-            // clean all obsjects and swimmer
-            next = false;
-
-            // missing condition to leave pos-death scream
-            while (!next) {
-
-                //pos-death scream
-                next = true;
-                Thread.sleep(100);
+            int score = game.runGame();
+            if (score > bestScore) {
+                bestScore = score;
             }
-
-            // cycles continue until someone press click
-*/
-
-
+            next = false;
         }
 
         System.exit(0);

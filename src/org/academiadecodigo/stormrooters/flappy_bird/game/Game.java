@@ -27,6 +27,7 @@ public class Game {
     private CollisionDetector collisionDetector;
     private Sound mainSound;
     private Sound deathSound;
+    private int score;
 
     private int currentSpacer;
     private int maxSpacer;
@@ -72,11 +73,12 @@ public class Game {
      * check of collisions and
      * listener all Movables
      */
-    public void runGame() throws InterruptedException {
+    public int runGame() throws InterruptedException {
 
         dificultyModifier = 200;
-        maxSpacer = 290;
+        maxSpacer = 300;
         currentSpacer = 0;
+        score = 0;
         int delayAnimation = 0;
         swimmer.draw();
 
@@ -88,7 +90,6 @@ public class Game {
             dificultyModifier--;
 
             createObstacle();
-
 
             //delay between cycles
             Thread.sleep(DELAY);
@@ -111,6 +112,8 @@ public class Game {
                 maxSpacer -= 10;
                 dificultyModifier = 200;
             }
+
+            score++;
         }
         mainSound.stop();
         deathSound.play(true);
@@ -142,6 +145,7 @@ public class Game {
         mainSound.loopIndef();
         swimmer.reset();
         resetAllObstacles();
+        return score;
     }
 
 
@@ -159,7 +163,6 @@ public class Game {
             for (int i = 0; i < obstacles.size(); i++) {
 
                 if (!obstacles.get(i).getUsed()) {
-
                     currentSpacer = maxSpacer;
                     obstacles.get(i).reUseObstacle();
                     obstacles.get(i).configObstacle(generateGap());
