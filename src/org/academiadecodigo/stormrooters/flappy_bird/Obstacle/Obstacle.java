@@ -40,7 +40,7 @@ public class Obstacle {
             cells.add(new Cell(Game.FIELD_WIGHT - cellWidth, Game.PADDING +
                     (cellHeight * i), pathNormalSprite));
         }
-
+        cellsDrawn = SIZE;
 
     }
 
