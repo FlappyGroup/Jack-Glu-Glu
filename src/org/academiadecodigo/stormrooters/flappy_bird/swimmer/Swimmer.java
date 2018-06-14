@@ -61,7 +61,7 @@ public class Swimmer implements KeyboardHandler {
     /**
      * show hitboxes for current sprite
      */
-    public void drawHitBoxes() {
+    private void drawHitBoxes() {
 
         Rectangle[] hitBoxes = this.hitBoxes.get(atSprite);
         for (Rectangle rectangle : hitBoxes) {
@@ -190,7 +190,6 @@ public class Swimmer implements KeyboardHandler {
         isDead = true;
         cyclesRising = 0;
         atSprite = 1;
-        drawHitBoxes();
     }
 
     public void reset() {
@@ -232,7 +231,7 @@ public class Swimmer implements KeyboardHandler {
 
     }
 
-    public void addEventsToKeyboard() {
+    private void addEventsToKeyboard() {
 
         Keyboard keyboard = new Keyboard(this);
 
