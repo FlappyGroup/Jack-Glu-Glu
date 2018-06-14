@@ -70,7 +70,6 @@ public class Swimmer implements KeyboardHandler {
     }
 
     private Rectangle[] generateHitBox(int number) {
-        System.out.println(number);
         switch (number) {
 
             case 0:

@@ -24,6 +24,7 @@ public class Game {
     private CollisionDetector collisionDetector;
     private Sound mainSound;
     private Sound deathSound;
+    private int score;
 
     private int currentSpacer;
     private int maxSpacer;
@@ -69,11 +70,12 @@ public class Game {
      * check of collisions and
      * listener all Movables
      */
-    public void runGame() throws InterruptedException {
+    public int runGame() throws InterruptedException {
 
         dificultyModifier = 200;
         maxSpacer = 300;
         currentSpacer = 0;
+        score = 0;
         int delayAnimation = 0;
         swimmer.draw();
 
@@ -105,9 +107,10 @@ public class Game {
 
             if (dificultyModifier <= 0) {
                 maxSpacer -= 10;
-                System.out.println(maxSpacer);
                 dificultyModifier = 200;
             }
+
+            score++;
         }
         mainSound.stop();
         deathSound.play(true);
@@ -139,6 +142,7 @@ public class Game {
         mainSound.loopIndef();
         swimmer.reset();
         resetAllObstacles();
+        return score;
     }
 
 
