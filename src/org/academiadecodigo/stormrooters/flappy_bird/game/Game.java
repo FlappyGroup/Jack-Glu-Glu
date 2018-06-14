@@ -78,7 +78,6 @@ public class Game {
         swimmer.draw();
 
         createObstacle();
-
         while (!swimmer.isDead()) {
 
             delayAnimation--;
@@ -110,7 +109,6 @@ public class Game {
                 dificultyModifier = 200;
             }
         }
-
         mainSound.stop();
         deathSound.play(true);
         boolean animationEnd = false;

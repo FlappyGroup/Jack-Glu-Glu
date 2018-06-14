@@ -28,7 +28,7 @@ public class Swimmer implements KeyboardHandler {
 
     public Swimmer() {
 
-        this.atSprite = 1;
+        this.atSprite = 6;
         this.spritesPath = new ArrayList<>();
         this.deathSpritesPath = new ArrayList<>();
         this.hitBoxes = new HashMap<>();
@@ -53,7 +53,7 @@ public class Swimmer implements KeyboardHandler {
 
 
         addEventsToKeyboard();
-        for (int i = 1; i <= 7; i++) {
+        for (int i = 0; i <= 6; i++) {
             hitBoxes.put(i, generateHitBox(i));
         }
     }
@@ -61,7 +61,7 @@ public class Swimmer implements KeyboardHandler {
     /**
      * show hitboxes for current sprite
      */
-    private void drawHitBoxes() {
+    public void drawHitBoxes() {
 
         Rectangle[] hitBoxes = this.hitBoxes.get(atSprite);
         for (Rectangle rectangle : hitBoxes) {
@@ -70,48 +70,49 @@ public class Swimmer implements KeyboardHandler {
     }
 
     private Rectangle[] generateHitBox(int number) {
+        System.out.println(number);
         switch (number) {
 
-            case 1:
+            case 0:
                 return new Rectangle[]{
-                        new Rectangle(getX(), getY(), 15, 42),
+                        new Rectangle(getX(), getY() + 4, 15, 37),
                         new Rectangle(getX() + 15, getY() + 10, 56, 20),
                         new Rectangle(getX() + 73, getY(), 15, 17)
                 };
 
+            case 1:
+                return new Rectangle[]{
+                        new Rectangle(getX() + 3, getY() + 12, 61, 19),
+                        new Rectangle(getX() + 71, getY(), 19, 20)
+                };
+
             case 2:
                 return new Rectangle[]{
-                        new Rectangle(getX() + 3, getY() + 13, 61, 21),
-                        new Rectangle(getX() + 71, getY(), 19, 20)
+                        new Rectangle(getX() + 2, getY() + 18, 33, 13),
+                        new Rectangle(getX() + 39, getY() + 11, 30, 15),
+                        new Rectangle(getX() + 72, getY() + 2, 18, 17)
                 };
 
             case 3:
                 return new Rectangle[]{
-                        new Rectangle(getX() + 2, getY() + 16, 36, 15),
-                        new Rectangle(getX() + 39, getY() + 11, 30, 17),
-                        new Rectangle(getX() + 72, getY() + 2, 18, 17)
-                };
-
-            case 4:
-                return new Rectangle[]{
-                        new Rectangle(getX() + 3, getY() + 11, 61, 21),
+                        new Rectangle(getX() + 3, getY() + 13, 61, 17),
                         new Rectangle(getX() + 71, getY(), 19, 20)
                 };
 
-            case 5:
+            case 4:
                 return new Rectangle[]{
                         new Rectangle(getX(), getY(), 15, 42),
                         new Rectangle(getX() + 15, getY() + 10, 56, 22),
                         new Rectangle(getX() + 73, getY(), 15, 17)
                 };
 
-            case 6:
+            case 5:
                 return new Rectangle[]{
-                        new Rectangle(getX() + 3, getY() + 11, 61, 17),
+                        new Rectangle(getX() + 3, getY() + 13, 61, 15),
                         new Rectangle(getX() + 71, getY(), 19, 20)
                 };
 
-            case 7:
+            case 6:
                 return new Rectangle[]{
                         new Rectangle(getX() + 2, getY() + 18, 36, 13),
                         new Rectangle(getX() + 39, getY() + 11, 30, 15),
@@ -134,7 +135,7 @@ public class Swimmer implements KeyboardHandler {
             atSprite++;
             if (atSprite >= spritesPath.size()) {
 
-                atSprite = 1;
+                atSprite = 0;
             }
 
             picture.load(spritesPath.get(atSprite));
@@ -144,7 +145,7 @@ public class Swimmer implements KeyboardHandler {
 
         if (atSprite >= deathSpritesPath.size()) {
 
-            atSprite = 1;
+            atSprite = 0;
         }
 
         picture.load(deathSpritesPath.get(atSprite));
@@ -189,6 +190,7 @@ public class Swimmer implements KeyboardHandler {
         isDead = true;
         cyclesRising = 0;
         atSprite = 1;
+        drawHitBoxes();
     }
 
     public void reset() {

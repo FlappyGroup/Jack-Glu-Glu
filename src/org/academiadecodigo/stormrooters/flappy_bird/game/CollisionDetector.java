@@ -63,13 +63,13 @@ public class CollisionDetector {
 
 
             // checking collision with top obstacles
-            if (hitBoxY <= topCellY + topCellHeight) {
+            if (hitBoxY <= topCellY + topCellHeight - 3) {
                 swimmer.die();
                 continue;
             }
 
             // checking collision with bottom obstacles
-            if (hitBoxY + hitBoxHeight >= bottomCellY) {
+            if (hitBoxY + hitBoxHeight >= bottomCellY + 3) {
                 swimmer.die();
                 continue;
             }
