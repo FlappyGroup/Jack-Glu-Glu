@@ -35,7 +35,7 @@ public class Game {
         //creating the field                     W                 H
         field = new Rectangle(PADDING, PADDING, FIELD_WIGHT, FIELD_HEIGHT);
         this.field.draw();
-        Picture background = new Picture(PADDING, PADDING, "resources/bg.jpg");
+        Picture background = new Picture(PADDING, PADDING, "bg.jpg");
         background.draw();
 
 
@@ -44,7 +44,7 @@ public class Game {
 
         for (int i = 0; i < 5; i++) {
             Obstacle obstacle = new Obstacle();
-            obstacle.objectInit();
+            obstacle.init();
             obstacles.add(obstacle);
         }
 
@@ -123,25 +123,14 @@ public class Game {
 
         if (spacer <= 0) {
 
-            if (obstacles.size() < 5) {
-
-                Obstacle obst = new Obstacle();
-                spacer = 300;
-                obst.objectInit();
-                obst.deleteGap(generateGap());
-
-                obstacles.add(obst);
-                return;
-
-            }
-
             for (int i = 0; i < obstacles.size(); i++) {
 
                 if (!obstacles.get(i).getUsed()) {
                     spacer = 300;
-                    obstacles.get(i).translateCells();
-                    obstacles.get(i).deleteGap(generateGap());
+                    obstacles.get(i).reUseObstacle();
+                    obstacles.get(i).configObstacle(generateGap());
                     obstacles.get(i).setUsed(true);
+                    obstacles.get(i).drawCells();
                     break;
 
                 }

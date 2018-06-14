@@ -1,12 +1,14 @@
 package org.academiadecodigo.stormrooters.flappy_bird.Obstacle;
 
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
+import org.academiadecodigo.simplegraphics.pictures.Picture;
 
-public class Cell extends Rectangle {
+public class Cell extends Picture {
     private boolean status;
 
-    public Cell(double v, double v1, double v2, double v3) {
-        super(v, v1, v2, v3);
+
+    public Cell(double v, double v1, String s) {
+        super(v, v1, s);
         this.status = true;
     }
 

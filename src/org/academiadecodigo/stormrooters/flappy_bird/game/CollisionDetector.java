@@ -26,14 +26,14 @@ public class CollisionDetector {
     public void check() {
 
         Obstacle obstacle = obstacles.peek();
-        Cell topCell = obstacle.getTopObstacle();
+        Cell topCell = obstacle.getTopCell();
 
         int topCellY = topCell.getY();
         int topCellX = topCell.getX();
         int topCellWidth = topCell.getWidth();
         int topCellHeight = topCell.getHeight();
 
-        int bottomCellY = obstacle.getBottomObstacle().getY();
+        int bottomCellY = obstacle.getBottomCell().getY();
 
 
         // checking if obstacles hit the edge of the field and delete
