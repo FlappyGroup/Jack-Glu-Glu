@@ -18,6 +18,9 @@ public class Game {
     public static final int FIELD_HEIGHT = 495;
     public static final int FIELD_WIGHT = 1500;
 
+
+    private int lastAddedObsacleIndex;
+
     private Swimmer swimmer;
     private Rectangle field;
     private LinkedList<Obstacle> obstacles;
@@ -72,7 +75,7 @@ public class Game {
     public void runGame() throws InterruptedException {
 
         dificultyModifier = 200;
-        maxSpacer = 300;
+        maxSpacer = 290;
         currentSpacer = 0;
         int delayAnimation = 0;
         swimmer.draw();
@@ -85,6 +88,7 @@ public class Game {
             dificultyModifier--;
 
             createObstacle();
+
 
             //delay between cycles
             Thread.sleep(DELAY);
@@ -105,7 +109,6 @@ public class Game {
 
             if (dificultyModifier <= 0) {
                 maxSpacer -= 10;
-                System.out.println(maxSpacer);
                 dificultyModifier = 200;
             }
         }
@@ -149,16 +152,19 @@ public class Game {
 
         currentSpacer--;
 
+        obstacles.get(lastAddedObsacleIndex).drawCells();
+
         if (currentSpacer <= 0) {
 
             for (int i = 0; i < obstacles.size(); i++) {
 
                 if (!obstacles.get(i).getUsed()) {
+
                     currentSpacer = maxSpacer;
                     obstacles.get(i).reUseObstacle();
                     obstacles.get(i).configObstacle(generateGap());
                     obstacles.get(i).setUsed(true);
-                    obstacles.get(i).drawCells();
+                    lastAddedObsacleIndex = i;
                     break;
 
                 }

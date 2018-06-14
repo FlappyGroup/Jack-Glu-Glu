@@ -15,6 +15,7 @@ public class Obstacle {
     private final int cellWidth = 100;
     private int middleGap;
     private boolean used;
+    private int cellsDrawn;
 
     private final String pathNormalSprite = "obstacle/normal.png";
     private final String pathTopSprite = "obstacle/top.png";
@@ -65,7 +66,7 @@ public class Obstacle {
     public void configObstacle(int numberGap) {
 
         middleGap = numberGap;
-
+        cellsDrawn = 0;
         for (int i = this.middleGap - 1; i <= this.middleGap + 1; i++) {
 
             cells.get(i).delete();
@@ -76,9 +77,27 @@ public class Obstacle {
     }
 
     public void drawCells() {
-        for (Cell cell : cells) {
-            if (cell.isStatus()) {
-                cell.draw();
+
+        if (cellsDrawn == SIZE) {
+            return;
+        }
+
+        int x = SIZE / 2;
+        if (cellsDrawn == x) {
+
+            for (int i = SIZE / 2; i < SIZE; i++) {
+                if (cells.get(i).isStatus()) {
+                    cells.get(i).draw();
+                    cellsDrawn = SIZE;
+                }
+            }
+            return;
+        }
+
+        for (int i = 0; i < SIZE / 2; i++) {
+            if (cells.get(i).isStatus()) {
+                cells.get(i).draw();
+                cellsDrawn = SIZE / 2;
             }
         }
     }
