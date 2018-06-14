@@ -5,6 +5,7 @@ import org.academiadecodigo.simplegraphics.mouse.MouseEvent;
 import org.academiadecodigo.simplegraphics.mouse.MouseEventType;
 import org.academiadecodigo.simplegraphics.mouse.MouseHandler;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
+import org.academiadecodigo.stormrooters.flappy_bird.Sound;
 
 public class GameHandler implements MouseHandler {
 
@@ -30,7 +31,12 @@ public class GameHandler implements MouseHandler {
 
         listener();
         menuExit = new Picture(580, 350, "resources/EXIT.png");
-        title = new Picture(500, 50, "resources/glu glu.png");
+        title = new Picture(290, 50, "resources/title.png");
+
+        Sound sound = new Sound("/resources/sound.wav");
+        sound.loopIndef();
+        sound.play(true);
+
         while (!exit) {
 
             // missing condition to leave menu
@@ -39,8 +45,7 @@ public class GameHandler implements MouseHandler {
             menuExit.draw();
             title.draw();
             while (!next) {
-                // menus
-                System.out.println("fuck");
+
                 Thread.sleep(500);
 
 
@@ -48,6 +53,7 @@ public class GameHandler implements MouseHandler {
 
             menuPlay.delete();
             menuExit.delete();
+            title.delete();
 
             if (exit) {
                 break;
