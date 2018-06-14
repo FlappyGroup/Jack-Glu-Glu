@@ -13,6 +13,7 @@ public class GameHandler implements MouseHandler {
     private Picture menuPlay;
     private Picture menuExit;
     private boolean exit = false;
+    private Picture title;
 
     public GameHandler() {
 
@@ -29,14 +30,14 @@ public class GameHandler implements MouseHandler {
 
         listener();
         menuExit = new Picture(580, 350, "resources/EXIT.png");
-
+        title = new Picture(500, 50, "resources/glu glu.png");
         while (!exit) {
 
             // missing condition to leave menu
 
             menuPlay.draw();
             menuExit.draw();
-
+            title.draw();
             while (!next) {
                 // menus
                 System.out.println("fuck");
