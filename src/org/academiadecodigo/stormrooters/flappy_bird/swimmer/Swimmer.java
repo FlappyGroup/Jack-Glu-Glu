@@ -14,6 +14,10 @@ import java.util.HashMap;
 
 public class Swimmer implements KeyboardHandler {
 
+    private final int maxCyclesRising = 30;
+    private final int speedUp = -2;
+    private final int speedDown = 2;
+
     private boolean isDead;
     private ArrayList<String> spritesPath;
     private ArrayList<String> deathSpritesPath;
@@ -121,37 +125,6 @@ public class Swimmer implements KeyboardHandler {
     }
 
     /**
-     * listener the bird up and down (if cycles rising > 0 listener up)
-     */
-
-    public void move(Direction direction) {
-
-        int newYIncrement = 0;
-
-        switch (direction) {
-
-            case UP:
-                newYIncrement = -2;
-                break;
-
-            case DOWN:
-                newYIncrement = 2;
-                break;
-
-        }
-
-        this.picture.translate(0, newYIncrement);
-        for (Rectangle[] hitBoxes : hitBoxes.values()) {
-
-            for (Rectangle hitBox : hitBoxes) {
-
-                hitBox.translate(0, newYIncrement);
-            }
-        }
-
-    }
-
-    /**
      * load next sprite if it is the after the last loads the first again
      * if swimmer is dead load different spites
      */
@@ -186,13 +159,13 @@ public class Swimmer implements KeyboardHandler {
      */
     public void move() {
 
-        int movement = 1;
+        int movement = speedDown;
         if (isDead) {
             cyclesRising = 0;
         }
         if (cyclesRising > 0) {
 
-            movement = -1;
+            movement = speedUp;
             cyclesRising--;
         }
 
@@ -219,10 +192,11 @@ public class Swimmer implements KeyboardHandler {
     }
 
     public void reset() {
-        picture.delete();
         isDead = false;
         atSprite = 1;
         picture.translate(0, -250);
+        this.nextSprite();
+        picture.delete();
 
         for (Rectangle[] hitBoxes : hitBoxes.values()) {
 
@@ -243,15 +217,13 @@ public class Swimmer implements KeyboardHandler {
         switch (keyboardEvent.getKey()) {
 
             case KeyboardEvent.KEY_UP:
-                move(Direction.UP);
                 break;
 
             case KeyboardEvent.KEY_DOWN:
-                move(Direction.DOWN);
                 break;
 
             case KeyboardEvent.KEY_SPACE:
-                cyclesRising = 40;
+                cyclesRising = maxCyclesRising;
                 break;
 
         }

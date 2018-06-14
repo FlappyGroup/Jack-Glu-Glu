@@ -33,9 +33,7 @@ public class GameHandler implements MouseHandler {
         menuExit = new Picture(580, 350, "resources/EXIT.png");
         title = new Picture(290, 50, "resources/title.png");
 
-        Sound sound = new Sound("/resources/sound.wav");
-        sound.loopIndef();
-        sound.play(true);
+
 
         while (!exit) {
 
@@ -94,22 +92,22 @@ public class GameHandler implements MouseHandler {
 
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
-        double mousex = mouseEvent.getX();
-        double mouseY = mouseEvent.getY();
+        double mouseX = mouseEvent.getX();
+        double mouseY = mouseEvent.getY() - 25 - Game.PADDING;
 
-        if (mousex > menuPlay.getX() && mousex < menuPlay.getX() + menuPlay.getWidth()
+        if (mouseX > menuPlay.getX() && mouseX < menuPlay.getX() + menuPlay.getWidth()
                 && mouseY > menuPlay.getY() && mouseY < menuPlay.getY() + menuPlay.getHeight()) {
             next = true;
 
 
         }
 
-        if (mousex > menuExit.getX() && mousex < menuExit.getX() + menuExit.getWidth()
+        if (mouseX > menuExit.getX() && mouseX < menuExit.getX() + menuExit.getWidth()
                 && mouseY > menuExit.getY() && mouseY < menuExit.getY() + menuExit.getHeight()) {
             exit = true;
             next = true;
         }
-
+        System.out.println();
     }
 
     @Override

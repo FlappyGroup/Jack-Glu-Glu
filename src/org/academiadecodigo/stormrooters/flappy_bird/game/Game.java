@@ -4,13 +4,15 @@ package org.academiadecodigo.stormrooters.flappy_bird.game;
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 import org.academiadecodigo.stormrooters.flappy_bird.Obstacle.Obstacle;
+import org.academiadecodigo.stormrooters.flappy_bird.Sound;
 import org.academiadecodigo.stormrooters.flappy_bird.swimmer.Swimmer;
 
 import java.util.LinkedList;
 
 public class Game {
 
-    private final int DELAY = 7;
+    private int dificultyModifier = 200;
+    private final int DELAY = 14;
     public static final int PADDING = 10;
 
     public static final int FIELD_HEIGHT = 495;
@@ -20,8 +22,11 @@ public class Game {
     private Rectangle field;
     private LinkedList<Obstacle> obstacles;
     private CollisionDetector collisionDetector;
+    private Sound mainSound;
+    private Sound deathSound;
 
-    private int spacer;
+    private int currentSpacer;
+    private int maxSpacer;
 
 
     /**
@@ -31,6 +36,9 @@ public class Game {
      */
     public void init() {
 
+
+        mainSound = new Sound("/resources/sound.wav");
+        deathSound = new Sound("/resources/death.wav");
 
         //creating the field                     W                 H
         field = new Rectangle(PADDING, PADDING, FIELD_WIGHT, FIELD_HEIGHT);
@@ -42,7 +50,7 @@ public class Game {
         // creating obstacle lists
         this.obstacles = new LinkedList<>();
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 7; i++) {
             Obstacle obstacle = new Obstacle();
             obstacle.init();
             obstacles.add(obstacle);
@@ -52,6 +60,9 @@ public class Game {
         this.swimmer = new Swimmer();
         collisionDetector = new CollisionDetector(field, swimmer, obstacles);
         swimmer.init();
+
+        mainSound.loopIndef();
+        mainSound.play(true);
     }
 
     /**
@@ -60,7 +71,9 @@ public class Game {
      */
     public void runGame() throws InterruptedException {
 
-        spacer = 0;
+        dificultyModifier = 200;
+        maxSpacer = 300;
+        currentSpacer = 0;
         int delayAnimation = 0;
         swimmer.draw();
 
@@ -69,6 +82,9 @@ public class Game {
         while (!swimmer.isDead()) {
 
             delayAnimation--;
+            currentSpacer--;
+            dificultyModifier--;
+
             createObstacle();
 
             //delay between cycles
@@ -85,10 +101,18 @@ public class Game {
 
             if (delayAnimation <= 0) {
                 swimmer.nextSprite();
-                delayAnimation = 30;
+                delayAnimation = 10;
+            }
+
+            if (dificultyModifier <= 0) {
+                maxSpacer -= 10;
+                System.out.println(maxSpacer);
+                dificultyModifier = 200;
             }
         }
 
+        mainSound.stop();
+        deathSound.play(true);
         boolean animationEnd = false;
         delayAnimation = 0;
 
@@ -99,7 +123,7 @@ public class Game {
 
             if (delayAnimation <= 0) {
                 swimmer.nextSprite();
-                delayAnimation = 30;
+                delayAnimation = 10;
             }
 
             swimmer.move();
@@ -109,6 +133,12 @@ public class Game {
                 animationEnd = true;
             }
         }
+        deathSound.stop();
+
+        Thread.sleep(100);
+
+        mainSound.play(false);
+        mainSound.loopIndef();
         swimmer.reset();
         resetAllObstacles();
     }
@@ -119,14 +149,14 @@ public class Game {
      */
     private void createObstacle() {
 
-        spacer--;
+        currentSpacer--;
 
-        if (spacer <= 0) {
+        if (currentSpacer <= 0) {
 
             for (int i = 0; i < obstacles.size(); i++) {
 
                 if (!obstacles.get(i).getUsed()) {
-                    spacer = 300;
+                    currentSpacer = maxSpacer;
                     obstacles.get(i).reUseObstacle();
                     obstacles.get(i).configObstacle(generateGap());
                     obstacles.get(i).setUsed(true);

@@ -96,7 +96,7 @@ public class Obstacle {
 
         for (Picture cell : cells) {
 
-            cell.translate(-1, 0);
+            cell.translate(-3, 0);
         }
 
 
