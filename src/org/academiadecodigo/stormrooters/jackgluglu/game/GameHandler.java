@@ -1,4 +1,4 @@
-package org.academiadecodigo.stormrooters.flappy_bird.game;
+package org.academiadecodigo.stormrooters.jackgluglu.game;
 
 import org.academiadecodigo.simplegraphics.graphics.Color;
 import org.academiadecodigo.simplegraphics.graphics.Text;
@@ -7,7 +7,6 @@ import org.academiadecodigo.simplegraphics.mouse.MouseEvent;
 import org.academiadecodigo.simplegraphics.mouse.MouseEventType;
 import org.academiadecodigo.simplegraphics.mouse.MouseHandler;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
-import org.academiadecodigo.stormrooters.flappy_bird.Sound;
 
 public class GameHandler implements MouseHandler {
 

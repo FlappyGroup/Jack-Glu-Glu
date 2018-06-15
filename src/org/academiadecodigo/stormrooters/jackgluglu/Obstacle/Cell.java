@@ -1,6 +1,5 @@
-package org.academiadecodigo.stormrooters.flappy_bird.Obstacle;
+package org.academiadecodigo.stormrooters.jackgluglu.Obstacle;
 
-import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class Cell extends Picture {

@@ -4,9 +4,9 @@
 
     <!-- Initialize build properties  -->
     <target name="init" description="Initializes properties">
-        <property name="project.name" value="FlappyBirds" />
+        <property name="project.name" value="JackGluGlu" />
         <property name="src.dir" value="src" />
-        <property name="main.class" value="org.academiadecodigo.stormrooters.flappy_bird.Main" />
+        <property name="main.class" value="org.academiadecodigo.stormrooters.jackgluglu.Main" />
         <property name="build.dir" value="build" />
         <property name="classes.dir" value="${build.dir}/classes" />
         <property name="lib.dir" value="lib" />

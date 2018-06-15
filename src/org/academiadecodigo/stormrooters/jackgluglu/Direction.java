@@ -1,4 +1,4 @@
-package org.academiadecodigo.stormrooters.flappy_bird;
+package org.academiadecodigo.stormrooters.jackgluglu;
 
 public enum Direction {
 

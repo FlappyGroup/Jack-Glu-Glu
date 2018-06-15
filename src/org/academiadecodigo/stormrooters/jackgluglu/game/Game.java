@@ -1,11 +1,11 @@
-package org.academiadecodigo.stormrooters.flappy_bird.game;
+package org.academiadecodigo.stormrooters.jackgluglu.game;
 
 
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
-import org.academiadecodigo.stormrooters.flappy_bird.Obstacle.Obstacle;
-import org.academiadecodigo.stormrooters.flappy_bird.Sound;
-import org.academiadecodigo.stormrooters.flappy_bird.swimmer.Swimmer;
+import org.academiadecodigo.stormrooters.jackgluglu.Obstacle.Obstacle;
+import org.academiadecodigo.stormrooters.jackgluglu.Sound;
+import org.academiadecodigo.stormrooters.jackgluglu.swimmer.Swimmer;
 
 import java.util.LinkedList;
 

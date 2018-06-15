@@ -1,8 +1,8 @@
-package org.academiadecodigo.stormrooters.flappy_bird.Obstacle;
+package org.academiadecodigo.stormrooters.jackgluglu.Obstacle;
 
 
 import org.academiadecodigo.simplegraphics.pictures.Picture;
-import org.academiadecodigo.stormrooters.flappy_bird.game.Game;
+import org.academiadecodigo.stormrooters.jackgluglu.game.Game;
 
 import java.util.ArrayList;
 

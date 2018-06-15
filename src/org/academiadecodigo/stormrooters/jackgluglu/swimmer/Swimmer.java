@@ -1,4 +1,4 @@
-package org.academiadecodigo.stormrooters.flappy_bird.swimmer;
+package org.academiadecodigo.stormrooters.jackgluglu.swimmer;
 
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
@@ -6,8 +6,7 @@ import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
-import org.academiadecodigo.stormrooters.flappy_bird.Direction;
-import org.academiadecodigo.stormrooters.flappy_bird.game.Game;
+import org.academiadecodigo.stormrooters.jackgluglu.game.Game;
 
 import java.util.ArrayList;
 import java.util.HashMap;
