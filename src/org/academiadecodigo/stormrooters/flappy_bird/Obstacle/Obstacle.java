@@ -16,9 +16,9 @@ public class Obstacle {
     private int middleGap;
     private boolean used;
 
-    private final String pathNormalSprite = "obstacle/normal.png";
-    private final String pathTopSprite = "obstacle/top.png";
-    private final String pathBottomSpite = "obstacle/bottom.png";
+    private final String pathNormalSprite = "resources/obstacle/normal.png";
+    private final String pathTopSprite = "resources/obstacle/top.png";
+    private final String pathBottomSpite = "resources/obstacle/bottom.png";
 
     public Obstacle() {
 

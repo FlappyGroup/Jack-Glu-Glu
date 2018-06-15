@@ -44,7 +44,7 @@ public class Game {
         //creating the field                     W                 H
         field = new Rectangle(PADDING, PADDING, FIELD_WIGHT, FIELD_HEIGHT);
         this.field.draw();
-        Picture background = new Picture(PADDING, PADDING, "bg.jpg");
+        Picture background = new Picture(PADDING, PADDING, "resources/bg.jpg");
         background.draw();
 
 
